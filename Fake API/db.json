@@ -1,0 +1,275 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Burhan",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "Andi",
+      "password": "rahasia123",
+      "role": "user"
+    },
+    {
+      "username": "burhan.d3mits@gmail.com",
+      "role": "user",
+      "id": 3
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "nama": "sepeda polygon xtrada",
+      "harga": 5500000,
+      "discount": 10,
+      "deskripsi": "Adventure Starts Here! Sepeda Polygon Xtrada 5 merupakan sepeda hardtail yang sangat cocok untuk rider yang mencari jati diri mereka",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/P/A/PA00216.jpg",
+      "category": "XC"
+    },
+    {
+      "id": 2,
+      "nama": "sepeda polygon monarch",
+      "harga": 2250000,
+      "discount": 0,
+      "deskripsi": "Polygon Sepeda Monarch tidak pernah berhenti menunjukkan keunggulannya sebagai salah satu sepeda terlaris dalam kategori sepeda gunung XC Sport.",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/502322.png",
+      "category": "XC"
+    },
+    {
+      "id": 3,
+      "nama": "sepeda polygon premier",
+      "harga": 3800000,
+      "discount": 5,
+      "deskripsi": "Polygon Sepeda Premier tidak pernah berhenti menunjukkan keunggulannya sebagai salah satu sepeda terlaris dalam kategori sepeda gunung XC Sport.",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/502086.jpg",
+      "category": "XC"
+    },
+    {
+      "id": 4,
+      "nama": "sepeda polygon rays",
+      "harga": 4800000,
+      "discount": 5,
+      "deskripsi": "Polygon Sepeda Rays 2015 tidak pernah berhenti menunjukkan keunggulannya sebagai salah satu sepeda terlaris dalam kategori sepeda gunung XC Sport.",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/501934001.jpg",
+      "category": "XC"
+    },
+    {
+      "id": 5,
+      "nama": "sepeda polygon rays",
+      "harga": 4150000,
+      "discount": 10,
+      "deskripsi": "Polygon Sepeda Rays 2015 tidak pernah berhenti menunjukkan keunggulannya sebagai salah satu sepeda terlaris dalam kategori sepeda gunung XC Sport.",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/501934001.jpg",
+      "category": "XC"
+    },
+    {
+      "id": 6,
+      "nama": "sepeda polygon vander 3",
+      "harga": 5945000,
+      "discount": 15,
+      "deskripsi": "Polygon Sepeda Vander 3 tidak pernah berhenti menunjukkan keunggulannya sebagai salah satu sepeda terlaris dalam kategori sepeda gunung XC Sport.",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/501673.png",
+      "category": "XC"
+    }
+  ],
+  "frame": [
+    {
+      "id": 1,
+      "nama": "Polygon Frame Sepeda Collosus SX 3.0 26",
+      "harga": 12000000,
+      "discount": 0,
+      "deskripsi": "FULL SUSP XC",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/880x704/e9c3970ab036de70892d86c6d221abfe/5/0/501603.jpg",
+      "category": "Frame"
+    },
+    {
+      "id": 2,
+      "nama": "Polygon Frame Set Sepeda Trid",
+      "harga": 5600000,
+      "discount": 0,
+      "deskripsi": "1 x Polygon Trid Frame Set",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/502391001.jpg",
+      "category": "Frame"
+    },
+    {
+      "id": 3,
+      "nama": "Polygon Frame Sepeda Collosus DH 2.0 26",
+      "harga": 16700000,
+      "discount": 5,
+      "deskripsi": "1 x Polygon Frame Sepeda Collosus DH 2.0 26",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/501299001.jpg",
+      "category": "Frame"
+    },
+    {
+      "id": 4,
+      "nama": "Polygon Frame Sepeda Collosus DH9 Team Edition",
+      "harga": 31000000,
+      "discount": 5,
+      "deskripsi": "1 x Polygon Frame Sepeda Colossus DH9 Team Edition",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/P/A/PA00530.png",
+      "category": "Frame"
+    },
+    {
+      "id": 5,
+      "nama": "Polygon Frame Set Sepeda XQUARONE EX9",
+      "harga": 42000000,
+      "discount": 0,
+      "deskripsi": "ACX carbon dan roda ukuran 27.5",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/502308.jpg",
+      "category": "Frame"
+    },
+    {
+      "id": 6,
+      "nama": "Polygon Frame Set Sepeda Trid CR",
+      "harga": 2500000,
+      "discount": 5,
+      "deskripsi": "1 x Polygon Trid CR Frame Set",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/P/A/PA00860.jpg",
+      "category": "Frame"
+    }
+  ],
+  "spareparts": [
+    {
+      "id": 1,
+      "nama": "Polygon Handlebar Sepeda Steel Raise 06",
+      "harga": 35000,
+      "discount": 75,
+      "deskripsi": "1 x Polygon Handlebar Sepeda Steel Raise 06",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/2/0/200324.jpg",
+      "category": "Handle Bar"
+    },
+    {
+      "id": 2,
+      "nama": "Polygon Handlebar Sepeda Steel Raise 06",
+      "harga": 35000,
+      "discount": 75,
+      "deskripsi": "1 x Polygon Handlebar Sepeda Steel Raise 06",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/2/0/200324.jpg",
+      "category": "Handle Bar"
+    },
+    {
+      "id": 3,
+      "nama": "Shimano Shift Lever Sepeda Tourney RS35 without Gear Display",
+      "harga": 60000,
+      "discount": 55,
+      "deskripsi": "1 x Shimano Shift Lever Sepeda Tourney RS35 without Gear Display",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/7/2/724029001.jpg",
+      "category": "Shift Lever"
+    },
+    {
+      "id": 4,
+      "nama": "Polygon Crankset Sepeda Sierra CX",
+      "harga": 100000,
+      "discount": 45,
+      "deskripsi": "1 x Polygon Chainwheel Sierra CX 38T x 170mm",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/2/0/200067.jpg",
+      "category": "Crankset"
+    },
+    {
+      "id": 5,
+      "nama": "Polygon Handle Stem Sepeda Sport",
+      "harga": 900000,
+      "discount": 35,
+      "deskripsi": "1 x Polygon Handle Stem Sepeda Sport",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/7/1/715374.jpg",
+      "category": "Handle Stem"
+    },
+    {
+      "id": 6,
+      "nama": "Polygon Sadel Sepeda FM F5322",
+      "harga": 820000,
+      "discount": 45,
+      "deskripsi": "1 x Polygon Sadel Sepeda FM F5322",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/2/0/200844001.png",
+      "category": "Sadle"
+    }
+  ],
+  "aksesoris": [
+    {
+      "id": 1,
+      "nama": "Kunci Sepeda Tresorflex 6615C",
+      "harga": 348000,
+      "discount": 10,
+      "deskripsi": "1 x Abus Tresorflex 6615C Lock",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/P/A/PA00681.jpg",
+      "category": "Kunci"
+    },
+    {
+      "id": 2,
+      "nama": "Elite Botol Minum Sepeda Fly",
+      "harga": 148000,
+      "discount": 0,
+      "deskripsi": "Food-grade polyethylene",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/P/A/PA00782.jpg",
+      "category": "Botol"
+    },
+    {
+      "id": 3,
+      "nama": "Bengal Screw ED Rotor",
+      "harga": 48000,
+      "discount": 0,
+      "deskripsi": "1 x Bengal Screw ED Rotor",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/7/0/702277.png",
+      "category": "Screw"
+    },
+    {
+      "id": 4,
+      "nama": "Polygon Bell Sierra",
+      "harga": 14000,
+      "discount": 2,
+      "deskripsi": "1 x Polygon Bell Sierra",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/5/0/500368.png",
+      "category": "Bell"
+    },
+    {
+      "id": 5,
+      "nama": "Polygon Stand Sepeda Bolt 02 for 27.5",
+      "harga": 89000,
+      "discount": 20,
+      "deskripsi": "1 x Polygon Bolt 02 for 27.5 Bike Stand",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/2/0/200584001.jpg",
+      "category": "Stand"
+    },
+    {
+      "id": 6,
+      "nama": "Shimano Adjust Nut Sepeda TL-FC17",
+      "harga": 24000,
+      "discount": 5,
+      "deskripsi": "1 x Shimano TL-FC17 Adjust Nut",
+      "img": "https://www.rodalink.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/7/0/703021.jpg",
+      "category": "Nut"
+    }
+  ],
+  "wishlist": [
+    {
+      "idUser": 1,
+      "discount": 0,
+      "nama": "Elite Botol Minum Sepeda Fly",
+      "harga": 148000,
+      "deskripsi": "Food-grade polyethylene",
+      "qty": 1,
+      "id": 1
+    }
+  ],
+  "cart": [],
+  "history": [
+    {
+      "idUser": 1,
+      "username": "Burhan",
+      "tanggal": "03/04/2019",
+      "waktu": "21:16:01",
+      "total": 3610000,
+      "item": [
+        {
+          "nama": "sepeda polygon premier",
+          "harga": 3800000,
+          "qty": "1",
+          "discount": 5
+        }
+      ],
+      "id": 2
+    }
+  ]
+}
