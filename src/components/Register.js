@@ -37,6 +37,10 @@ class Register extends React.Component{
             this.setState({error: ' Harus diisi semua '})
         }else{
             this.props.userRegister(username,password,email,phone)
+            this.refs.username.value = ''
+            this.refs.password.value = ''
+            this.refs.email.value = ''
+            this.refs.phone.value = ''
             swal('Register Success', 'Verify your email before login', 'success')
         }
     }
@@ -74,7 +78,7 @@ class Register extends React.Component{
                         
                         <form className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:"white",marginTop:'80px'}} ref="formLogin">
                             <fieldset>
-                            <h2>Register</h2>
+                            <h2>Create Account</h2>
                             <div className="input-group mb-2">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text" id="basic-addon">

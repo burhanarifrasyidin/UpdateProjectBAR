@@ -1,3 +1,5 @@
+/* ----------- css product list ------------- */
+
 .discount{
     background-color:red;
     position: absolute;
@@ -24,21 +26,46 @@ img{
     cursor: pointer;
 }
 
+/* ----------- css login ------------- */
 .bl{
-    background-image: url(https://images.unsplash.com/photo-1492546643178-96d64f3fd824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80);
+    background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(https://images.unsplash.com/photo-1485965120184-e220f721d03e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
     background-size: cover;
-    height: 650px;
+    min-height: 100vh;
+    display: '-webkit-box';
+    display: '-webkit-flex';
+    display: flex;
+    flex-wrap: wrap;
+    height: 800px;
+    z-index: 1;
+    padding: 15px;
+    background-size: cover;
+
 }
+
+/* ----------- css register ------------- */
 
 .br{
-    background-image: url(https://images.unsplash.com/photo-1492546643178-96d64f3fd824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80);
+    background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(https://images.unsplash.com/photo-1485965120184-e220f721d03e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
     background-size: cover;
-    height: 650px;
+    min-height: 100vh;
+    display: '-webkit-box';
+    display: '-webkit-flex';
+    display: flex;
+    flex-wrap: wrap;
+    height: 800px;
+    z-index: 1;
+    padding: 15px;
+    background-size: cover;
 }
 
-.bh{
-    /* background-image: url(https://images.unsplash.com/photo-1506143925201-0252c51780b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=375&q=80); */
-    background-size: cover;
-    height: 3200px;  
+/* ----------- css homepage ------------- */
+.home{
+ background-image: linear-gradient(178deg,#f9f8f7,#f5f5f5);
+ z-index: 1;
+}
+
+.footer{
+ background-image: linear-gradient(178deg,#b595fd,#f4bdf7);
+
 }
 

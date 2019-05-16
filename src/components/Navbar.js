@@ -11,10 +11,11 @@ import {
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import terserah from 'universal-cookie';
-import {resetUser,resetCount} from './../1.actions'
+import {resetUser,resetCount,getSearchData} from './../1.actions'
 
 const objCookie = new terserah()
 class HeaderKu extends Component {
+    state = {search:''}
 
     constructor(props) {
         super(props);
@@ -36,11 +37,21 @@ class HeaderKu extends Component {
         this.props.resetCount()
     }
 
+    valueHandler = () => {
+        this.setState({search : this.refs.searchBook.value})
+    }
+
+    onBtnSearch = () => {
+        this.props.getSearchData(this.state.search.toLowerCase())
+        this.refs.searchBook.value=''
+    }
+
     render() {
         if(this.props.bebas === ""){
             return (
+                <div className='navcolor'>
                 <div style = {{marginBottom: "75px",position:'absolute'}}>
-                    <Navbar color = "none" light expand = "md" fixed = "top" style={{height:'80px'}} >
+                    <Navbar light expand = "md" fixed = "top" style={{height:'60px',backgroundImage:'linear-gradient(178deg,#e7f4e9,#e7f4e9)'}} >
                     <NavbarBrand className = "ml-2" style={{fontSize:'20px'}}><Link to = '/'> <img src = "http://www.logospng.com/images/6/10-reasons-why-google-optimise-is-my-favourite-split-6432.png"
                     alt = "brand" width = "30px" height='30px'/>OnOSepeda.Com</Link>
                     </NavbarBrand >
@@ -49,12 +60,12 @@ class HeaderKu extends Component {
                     <NavItem >
                     <div className = "input-group border-right"
                     style = {{width: "350px"}}>
-                    <input type = "text" ref = "searchBook" className = "form-control border-primary"
+                    <input type = "text" ref = "searchBook" onChange={() => this.setState({searchData:this.refs.searchBook.value})}className = "form-control border-primary"
                     placeholder = "Masukkan kata kunci ... " />
                     <div className = "input-group-append mr-2" >
-                    <button  style={{color:'blue'}} className = "btn border-primary"
+                    <Link to={'/product?q='+this.state.search}><button  style={{color:'blue'}} className = "btn border-primary"
                     type = "button"
-                    id = "button-addon2"><i className = "fas fa-search" /></button></div></div>  </NavItem>
+                    id = "button-addon2" onClick ={this.onBtnSearch}><i className = "fas fa-search" /></button></Link></div></div>  </NavItem>
         
                     <NavItem ><Link to = "/register"><NavLink className = "btn btn-default border-primary mr-2"
                     style = {{fontSize: "14px",color:'blue'}}><i className = "fas fa-user-plus" />Daftar</NavLink></Link >
@@ -67,11 +78,12 @@ class HeaderKu extends Component {
                       </Collapse>
                       </Navbar>
                       </div>
+                      </div>
                 )
         } else {
             return (<div style = {{marginBottom: "75px",position:'absolute'}
             } >
-            <Navbar color = "none" light expand = "md"fixed = "top" >
+            <Navbar color = "light" light expand = "md"fixed = "top" >
             <NavbarBrand className = "ml-2" style={{fontSize:'20px'}}><Link to = '/' > < img src = "http://www.logospng.com/images/6/10-reasons-why-google-optimise-is-my-favourite-split-6432.png"
             alt = "brand" width = "30px" height='30px'/>OnOSepeda.Com</Link> </NavbarBrand >
             <NavbarToggler onClick = {this.toggle}/> <Collapse isOpen = {this.state.isOpen}navbar >
@@ -80,10 +92,10 @@ class HeaderKu extends Component {
             <NavItem >
             <div className = "input-group"
             style = {{width: "350px"}}>
-            <input type = "text" ref = "searchBook" className = "form-control"
+            <input type = "text" ref = "searchBook" onChange ={this.valueHandler} className = "form-control"
             placeholder = "Masukkan kata kunci ... " />
-            <div className = "input-group-append mr-2" >
-            <button className = "btn border-secondary" type = "button" id = "button-addon2"><i className = "fas fa-search" /></button> </div> </div>  
+            <div className = "input-group-append mr-2" style={{color:'blue'}} >
+            <Link to={'/search?q='+this.state.search}><button className = "btn border-secondary" type = "button" id = "button-addon2" onClick ={this.onBtnSearch}><i className = "fas fa-search" /></button> </Link></div> </div>  
             </NavItem>
 
             <NavItem>
@@ -111,28 +123,7 @@ class HeaderKu extends Component {
                     {
                         this.props.role === 'admin' ?
                         <Link to='/manage'><DropdownItem>
-                            Manage Product Bike
-                        </DropdownItem></Link>
-                        : null
-                    }
-                    {
-                        this.props.role === 'admin' ?
-                        <Link to='/manageframe'><DropdownItem>
-                        Manage Product Frame
-                        </DropdownItem></Link>
-                        : null
-                    }
-                    {
-                        this.props.role === 'admin' ?
-                        <Link to='/manageaksesoris'><DropdownItem>
-                        Manage Product Accessories
-                        </DropdownItem></Link>
-                        : null
-                    }
-                    {
-                        this.props.role === 'admin' ?
-                        <Link to='/managesparepart'><DropdownItem>
-                        Manage Product Sparepart
+                            Manage Product 
                         </DropdownItem></Link>
                         : null
                     }
@@ -143,8 +134,18 @@ class HeaderKu extends Component {
                         </DropdownItem></Link>
                         : null
                     }
+                    {
+                        this.props.role === 'admin' ?
+                        <Link to='/managetransaksi'><DropdownItem>
+                        Manage Transaction
+                        </DropdownItem></Link>
+                        : null
+                    }
                     <Link to='/history'><DropdownItem>
                         History Transaction
+                    </DropdownItem></Link>
+                    <Link to='/payment'><DropdownItem>
+                        Upload Bukti Pembayaran
                     </DropdownItem></Link>
                     <Link to='/wishlist'><DropdownItem>
                         Wishlist Product
@@ -172,8 +173,9 @@ const mapStateToProps =(state)=>{
     return {
         bebas : state.user.username,
         role : state.user.role,
-        cart : state.cart.count
+        cart : state.cart.count,
+        search : state.search.search
     }
 }
 
-export default connect (mapStateToProps,{resetUser,resetCount})(HeaderKu);
+export default connect (mapStateToProps,{resetUser,resetCount,getSearchData})(HeaderKu);

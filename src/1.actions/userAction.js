@@ -19,15 +19,16 @@ export const onLogin = (paramUsername, password) => {
             .then((res) => {
                 console.log(res)
                 // IF USERNAME DAN PASSWORD SESUAI MAKA RES DATA ADA ISINYA
-                swal("Mantab Brow!!", "Kamu Berhasil Masuk", "success");
                 if (res.data.length > 0) {
+                    swal("Mantab Brow!!", "Kamu Berhasil Masuk", "success");
                     dispatch({
                         type: 'LOGIN_SUCCESS',
                         payload: // atau res.data[0] => akan kekirim semua yang ada di db json
                         {
                             username : res.data[0].username,
                             role : res.data[0].role,
-                            id : res.data[0].id
+                            id : res.data[0].id,
+                            email : res.data[0].email
                         }
                     })
                 } else if(res.data[0].verified === 0){

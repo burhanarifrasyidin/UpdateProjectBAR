@@ -1,331 +1,101 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import Axios from 'axios';
-import { Button,Icon } from 'semantic-ui-react';
+import axios from 'axios';
 import { urlApi } from './../support/urlApi';
+import './../support/css/product.css';
 import { connect } from 'react-redux';
+import {cartCount} from './../1.actions';
 import swal from 'sweetalert';
-import {Link} from 'react-router-dom';
-import {cartCount,resetCount} from './../1.actions';
 
 
-const actionsStyles = theme => ({
-  root: {
-    flexShrink: 0,
-    color: theme.palette.text.secondary,
-    marginLeft: theme.spacing.unit * 2.5,
-  },
-});
+class Wishlist extends React.Component{
+    state = {listProduct : [],dataPage:6,cart:0,product:{}}
 
+    componentDidMount = () => {
+        this.getDataApi() 
+    }
 
-class TablePaginationActions extends React.Component {
-  handleFirstPageButtonClick = event => {
-    this.props.onChangePage(event, 0);
-  };
+    getDataApi = () => {
+            axios.get(urlApi + '/wishlist/showWish/' + this.props.id)
+            .then((res) => this.setState({listProduct : res.data}))
+            .catch((err) => console.log(err))
+    }
 
-  handleBackButtonClick = event => {
-    this.props.onChangePage(event, this.props.page - 1);
-  };
-
-  handleNextButtonClick = event => {
-    this.props.onChangePage(event, this.props.page + 1);
-  };
-
-  handleLastPageButtonClick = event => {
-    this.props.onChangePage(
-      event,
-      Math.max(0, Math.ceil(this.props.count / this.props.rowsPerPage) - 1),
-    );
-  };
-
-  render() {
-    const { classes, count, page, rowsPerPage, theme } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <IconButton
-          onClick={this.handleFirstPageButtonClick}
-          disabled={page === 0}
-          aria-label="First Page"
-        >
-          {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-        </IconButton>
-        <IconButton
-          onClick={this.handleBackButtonClick}
-          disabled={page === 0}
-          aria-label="Previous Page"
-        >
-          {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-        </IconButton>
-        <IconButton
-          onClick={this.handleNextButtonClick}
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-          aria-label="Next Page"
-        >
-          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-        </IconButton>
-        <IconButton
-          onClick={this.handleLastPageButtonClick}
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-          aria-label="Last Page"
-        >
-          {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-        </IconButton>
-      </div>
-    );
-  }
-}
-
-TablePaginationActions.propTypes = {
-  classes: PropTypes.object.isRequired,
-  count: PropTypes.number.isRequired,
-  onChangePage: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
-  theme: PropTypes.object.isRequired,
-};
-
-const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: true })(
-  TablePaginationActions,
-);
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-  },
-  table: {
-    minWidth: 500,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
-  },
-});
-
-class CustomPaginationActionsTable extends React.Component {
-  state = {
-    rows: [],
-    page: 0,
-    rowsPerPage: 5,
-    isEdit : false,
-    editItem : {},
-    aksesoris:{}
-  };
-
-  componentDidMount(){
-    this.getDataApi()
-  }
-
-  getDataApi = () => {
-      Axios.get(urlApi + '/wishlist?id_user=' + this.props.id)
-      .then((res) => this.setState({rows : res.data}))
+    addBtnCart = (param)=> {
+      var newData = {
+          id_user: this.props.id,
+          id_product : this.state.listProduct[param].id_product,
+          quantity : 1
+      }
+     axios.post(urlApi+'/cart/addtocartfromwish', newData)
+      .then((res) => {
+         swal("Terima kasih sudah membeli", res.data, "success")
+         this.props.cartCount(this.props.username)
+      })
       .catch((err) => console.log(err))
   }
 
-  
-  handleChangePage = (event, page) => {
-      this.setState({ page });
-    };
-    
-    addBtnCart = () => {
-        var newData = {
-            idUser : this.props.id,
-            discount : this.state.aksesoris.discount,
-            nama : this.state.aksesoris.nama,
-            harga : this.state.aksesoris.harga,
-            qty : 1,
-        }
-        Axios.get(urlApi + '/cart?nama=' + this.state.aksesoris.nama + '&idUser=' + this.props.id).then((res) => {
-            if(res.data.length > 0){
-                Axios.put(urlApi + '/cart/' + res.data[0].id, {...newData, qty: parseInt(res.data[0].qty) + parseInt(this.refs.inputQty.value) })
-                swal('Status Add' , 'Success Add to Cart' , 'success')
-            }else{
-                Axios.post(urlApi + '/cart',newData)
-                .then((res) => {
-                    swal('Status Add' , 'Success Add to Cart' , 'success')
-                    this.props.cartCount(this.props.username)
-                })
-                .catch((err) => console.log(err))
-            }
-        })
-
-    }   
-     
-    
-onBtnDelete = (id) => {
-        Axios.delete(urlApi + '/wishlist/' + id)
-        .then(() => {
-            this.getDataApi()
-            this.props.cartCount(this.props.username)
-            swal("Delete Product", "Selamat Anda Berhasil Delete", "success");
-        })
-        .catch((err) => console.log(err))
-};
-    
-getItem = () => {
-  var arr = []
-  for(var i = 0 ; i < this.state.rows.length ; i++){
-    var nama = this.state.rows[i].nama 
-    var harga = this.state.rows[i].harga 
-    var discount= this.state.rows[i].discount  
-    var qty = this.state.rows[i].qty
-    var data = {nama, harga, qty, discount}
-    arr.push(data)
-  }
-  return arr
-}
-
-  renderJsx = () => {
-    var jsx = this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((val,index) => {
-        return (
-            <TableRow>
-                <TableCell>{index+1}</TableCell>
-                  <TableCell component="th" scope="row">
-                    {val.nama}
-                  </TableCell>
-                  <TableCell>Rp. {val.harga}</TableCell>
-                  <TableCell>{val.discount}%</TableCell>
-                  <TableCell>{val.qty}</TableCell>
-                  {/* {
-                    this.state.isEdit===true && this.state.editIndex===index?
-                  <TableCell align="center">
-                  <input ref="quantity" type="number" defaultValue={val.qty}>
-                  </input></TableCell>:
-                  <TableCell align="center">{val.qty}</TableCell>
-                  } */}
-                      <TableCell>
-                    {val.deskripsi}
-                  </TableCell>
-                  <TableCell>
-                  <Link to={'/aksesoris-detail/' + val.id}><Button><i class="fas fa-binoculars"></i></Button></Link>
-                    </TableCell>
-                  
-                  <TableCell>
-                  <Button animated color='blue' onClick={this.addBtnCart}>
-                    <Button.Content visible><i class="fas fa-shopping-cart"></i></Button.Content>
-                    <Button.Content hidden>
-                    <Icon name='check' />
-                     </Button.Content>
-                 </Button><br/><br/>
-                 <Button animated color='red' onClick={() => this.onBtnDelete(val.id)}>
-                    <Button.Content visible><i class="fas fa-trash"></i></Button.Content>
-                    <Button.Content hidden>
-                    <Icon name='delete' />
-                     </Button.Content>
-                 </Button>
-                 </TableCell>
-            </TableRow>
-        )
+    onBtnDelete = (id) => {
+    axios.delete(urlApi + '/wishlist/deleteWish/' + id)
+    .then(() => {
+        this.getDataApi()
+        swal("Delete Wishlist", "Selamat Anda Berhasil Delete", "success");
     })
-    return jsx
+    .catch((err) => console.log(err))
   }
 
-  handleChangeRowsPerPage = event => {
-    this.setState({ page: 0, rowsPerPage: event.target.value });
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { rows, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-    // destructering untuk manggil di place holder dengan cukup nama,harga dll
-    // var {nama,harga,discount,category,deskripsi,img} = this.state.editItem;
-    
-      return (
-        <div className='container' style={{marginTop : '80px'}}>
-        { rows.length > 0 ?
-        <div>
-        <Paper className={classes.root}>
-            <div className={classes.tableWrapper}>
-              <Table className={classes.table}>
-              <TableHead>
-                  <TableRow>
-                      <TableCell style={{fontSize:'24px',fontWeight:'600'}}>ID</TableCell>
-                      <TableCell style={{fontSize:'24px',fontWeight:'600'}}>NAMA</TableCell>
-                      <TableCell style={{fontSize:'24px',fontWeight:'600'}}>HARGA</TableCell>
-                      <TableCell style={{fontSize:'24px',fontWeight:'600'}}>DISC</TableCell>
-                      <TableCell style={{fontSize:'24px',fontWeight:'600'}}>QTY</TableCell>
-                      <TableCell style={{fontSize:'24px',fontWeight:'600'}}>DESC</TableCell>
-                      <TableCell style={{fontSize:'24px',fontWeight:'600'}}>VIEW</TableCell>
-                      <TableCell style={{fontSize:'24px',fontWeight:'600'}}>ACT</TableCell>
-                  </TableRow>
-              </TableHead>
-                <TableBody>
-                    {this.renderJsx()}
-                  {emptyRows > 0 && (
-                    <TableRow>
-                      
-                      <TableCell colSpan={6} >
-                      </TableCell>
-
-                      <TableCell colSpan={6} >
-                      <Link to='/'><Button style={{marginLeft:'-35px'}} animated color='green' onClick={this.conShop}>
-                          <Button.Content visible>Continue Shop</Button.Content>
-                          <Button.Content hidden>
-                          <Icon name='check' />
-                          </Button.Content>
-                      </Button>
-                      </Link>
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-
-                <TableFooter>
-                  <TableRow>
-                    <TablePagination
-                      rowsPerPageOptions={[5, 10, 25]}
-                      colSpan={3}
-                      count={rows.length}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      SelectProps={{
-                        native: true,
-                      }}
-                      onChangePage={this.handleChangePage}
-                      onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                      ActionsComponent={TablePaginationActionsWrapped}
-                    />
-                  </TableRow>
-                </TableFooter>
-              </Table>
+    renderProdukJsx = () => {
+        var data = this.state.listProduct.slice(0,this.state.dataPage)
+        var jsx = data.map((val,index) => {
+                return (
+                    <div className="card col-md-4 mr-5 mt-3 ml-5" style={{width: '18px'}}>
+                        <img src={ `http://localhost:2008/${val.image}`} height="200px" className="card-img-top" alt=".." />
+                        {
+                            val.discount_product > 0 ?
+                            <div className="discount">{val.discount_product}%</div>
+                            : null
+                        }                      
+                            <div className="category">{val.category_product}</div>
+                            <div className="card-body">
+                                 <h4 className="card-text">{val.nama_product}</h4>
+                                 <h6 className="card-text">{val.deskripsi_product}</h6>
+                                 {
+                                 val.discount_product > 0 ?
+                                 <p className="card-text" style={{textDecoration:'line-through',color:'red',display:'inline'}}>Rp. {val.harga_product}</p>
+                                 : null
+                                 }
+                                 <p style={{display:'inline',marginLeft:'10px',fontWeight:'400'}}>Rp. {val.harga_product - (val.harga_product*(val.discount_product/100))}</p>
+                                 <input style={{borderRadius:'40px'}} type="button" className="d-block btn btn-primary" onClick={()=>this.addBtnCart(index)} value="Add To Cart"></input>
+                                 <input style={{marginTop:'4px',borderRadius:'40px'}} type="button" className="d-block btn btn-danger" onClick={()=>this.onBtnDelete(val.id)} value="Del Wishlist"></input>
+                            </div>
+                    </div>
+                )
+             
+        })
+        return jsx
+    }
+    render(){
+        return (
+            <div className='container' style={{paddingTop:'80px'}}>
+                <div className='row justify-content-center'>
+                <h2 style={{margin : "10px"}}>Wishlist Belanja Kamu : </h2>           
+                </div>
+                <div className='row justify-content-center'>
+                {this.renderProdukJsx()}              
+                </div>
+            <div className='row justify-content-center'>
+                         <p style={{cursor:'pointer',fontStyle:'italic'}} onClick={()=>this.setState({dataPage:this.state.dataPage+5})}>View More</p>
+                    </div>
             </div>
-          </Paper>
-        
-        </div>
-        : <Link to='/'><div className='row justify-content-center p-2'><div className='col-md-6' style={{paddingTop:'200px'}}><input type='button' value='Your Wishlist Is Empty,Continue Shopping' className='btn btn-success' style={{fontSize:'27px',fontWeight:'bold',textAlign:'center'}}></input></div></div></Link>
-        } 
-          </div>
-        );
-    
-  }
+        )
+    }
 }
-
-CustomPaginationActionsTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const mapStateToProps = (state) => {
   return{
-    role : state.user.role,
+    username : state.user.username,
     id : state.user.id,
-    cart : state.cart.count,
-    username : state.user.username
+    cart : state.cart.count
   }
 }
 
-export default connect (mapStateToProps,{cartCount,resetCount})(withStyles(styles)(CustomPaginationActionsTable));
+export default connect(mapStateToProps,{cartCount})(Wishlist)

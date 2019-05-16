@@ -8,9 +8,7 @@ class ManageCategory extends React.Component{
     
     state = {
         category : [],
-        subcategory : [],
         isEditCat : 0,
-        isEditSub : 0,
         editItem : {},
         dataPage : 5
     }
@@ -110,10 +108,10 @@ class ManageCategory extends React.Component{
                             <table style={{fontSize:'15px'}} className="table table-hover table-dark">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Do</th>
-                                        <th scope="col">Do</th>
+                                        <th scope="col">NO</th>
+                                        <th scope="col">CATEGORY</th>
+                                        <th scope="col">ACT</th>
+                                        <th scope="col">ACT</th>
                                     </tr>
                                 </thead>
                                 <tbody>

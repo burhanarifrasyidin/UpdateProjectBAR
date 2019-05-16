@@ -19,9 +19,9 @@ import { Button,Icon,Input } from 'semantic-ui-react';
 import { urlApi } from './../support/urlApi';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import {cartCount,resetCount} from './../1.actions';
-
+import Moment from 'moment'
 
 
 function formatMoney(number) {
@@ -128,7 +128,9 @@ class CustomPaginationActionsTable extends React.Component {
     rowsPerPage: 5,
     isEdit : false,
     editItem : {},
-    
+    isEditCart : 0,
+    checkOutDate : '',
+    checkOut : false
   };
 
   componentDidMount(){
@@ -136,7 +138,7 @@ class CustomPaginationActionsTable extends React.Component {
   }
 
   getDataApi = () => {
-      Axios.get(urlApi + '/cart?id_user=' + this.props.id)
+      Axios.get(urlApi + '/cart/showcart/' + this.props.id)
       .then((res) => this.setState({rows : res.data}))
       .catch((err) => console.log(err))
   }
@@ -147,12 +149,12 @@ class CustomPaginationActionsTable extends React.Component {
     };
     
     
-    onBtnEditClick = (param) => {
+  onBtnEditClick = (param) => {
         this.setState({isEdit : true, editItem : param})
     } 
     
-    onBtnDelete = (id) => {
-        Axios.delete(urlApi + '/cart/' + id)
+  onBtnDelete = (id) => {
+        Axios.delete(urlApi + '/cart/deletecart/' + id)
         .then(() => {
             this.getDataApi()
             this.props.cartCount(this.props.username)
@@ -161,19 +163,13 @@ class CustomPaginationActionsTable extends React.Component {
         .catch((err) => console.log(err))
     };
     
-    onBtnSave = () => {
-        var nama = this.state.editItem.nama
-        var harga = this.state.editItem.harga
-        var discount = this.state.editItem.discount
-        var category = this.state.editItem.category
-        var img = this.state.editItem.img
-        var deskripsi = this.state.editItem.deskripsi
-        var id_product = this.state.id
+  onBtnSave = () => {
+    // console.log(this.state.rows[0].id)
+        var id_product = this.state.rows[0].id
         var id_user = this.props.id
-        var qty = parseInt(this.qty.inputRef.value) === '' ? parseInt(this.state.editItem.qty) : parseInt(this.qty.inputRef.value)
-        var note = this.state.editItem.note
-    var newData = {id_user,id_product,note,nama,harga,discount,category,img,deskripsi,qty}
-    Axios.put(urlApi + '/cart/'+ this.state.editItem.id,newData)
+        var quantity = parseInt(this.qty.inputRef.value) === '' ? parseInt(this.state.editItem.quantity) : parseInt(this.qty.inputRef.value)
+    var newData = {id_user,id_product,quantity}
+    Axios.put(urlApi + '/cart/updatecart/'+ this.state.editItem.id,newData)
     .then((res) => {
         swal("Selamat!!", "Anda Berhasil Save Qty Produk", "success");
         this.getDataApi()
@@ -184,57 +180,95 @@ class CustomPaginationActionsTable extends React.Component {
 }
 
 onBtnCancel = () => {
-    swal("Selamat!!", "Anda Berhasil Cancel Edit Qty Produk", "success");
     this.setState({isEdit : false, editItem : {}})
 }
 
 getTotalHarga = () => {
     var harga = 0 
     for(var i =0;i<this.state.rows.length;i++){
-        harga += parseInt((this.state.rows[i].harga-(this.state.rows[i].harga*(this.state.rows[i].discount/100)))*this.state.rows[i].qty)
+        harga += parseInt((this.state.rows[i].harga_product-(this.state.rows[i].harga_product*(this.state.rows[i].discount_product/100)))*this.state.rows[i].quantity)
     }
     return harga
 }
 
-getItem = () => {
-  var arr = []
-  for(var i = 0 ; i < this.state.rows.length ; i++){
-    var nama = this.state.rows[i].nama 
-    var harga = this.state.rows[i].harga 
-    var discount= this.state.rows[i].discount  
-    var qty = this.state.rows[i].qty
-    var data = {nama, harga, qty, discount}
-    arr.push(data)
+// getItem = () => {
+//   var arr = []
+//   for(var i = 0 ; i < this.state.rows.length ; i++){
+//     var nama_product = this.state.rows[i].nama_product
+//     var harga_product = this.state.rows[i].harga_product
+//     var discount_product = this.state.rows[i].discount_product  
+//     var quantity = this.state.rows[i].quantity
+//     var data = {nama_product, harga_product, quantity, discount_product}
+//     arr.push(data)
+//   }
+//   return arr
+// }
+
+addToTransactionDetail = () => {
+  var date = new Date()
+  for(var i = 0 ; i < this.state.rows.length;i++){
+    var newData = {
+        order_number : `OS-`+ new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getMinutes(),
+        id_user : this.props.id,
+        nama_product: this.state.rows[i].nama_product,
+        quantity : this.state.rows[i].quantity,
+        harga_product : (this.state.rows[i].harga_product - (this.state.rows[i].harga_product *this.state.rows[i].discount_product/100))*this.state.rows[i].quantity,
+        tanggal : date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+    }
+    Axios.post(urlApi + '/cart/addtransdetail', newData)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
   }
-  return arr
+
 }
 
 deleteCart = () => {
   for(var i = 0 ; i < this.state.rows.length ; i++){
-    Axios.delete(urlApi + '/cart/' + this.state.rows[i].id)
+    Axios.delete(urlApi + '/cart/deletecart/' + this.state.rows[i].id)
     .then((res) => {
-      this.props.resetCount()
-      this.getData()
+      this.props.cartCount(this.props.username)
+      this.getDataApi()
     })
   }
 }
 
-cekOut = () => {
-  var date = new Date()
-    var newData = {
-      idUser : this.props.id,
-      username : this.props.username,
-      tanggal : String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(),
-      waktu : String(date.getHours()).padStart(2, '0') + ':' + String(date.getMinutes()).padStart(2, '0') + ':' + String(date.getSeconds()).padStart(2, '0'),
-      total : this.getTotalHarga(),
-      item : this.getItem()
-    }
-    Axios.post(urlApi + '/history' , newData)
-    .then((res) => {
-      swal('Checkout Status' , 'Sukses','success')
-      this.deleteCart()
-    })
+checkOut = () => {
+  var newData = {
+    order_number : `OS-`+ new Date().getDate() + new Date().getMonth() + new Date().getFullYear()+new Date().getMinutes(),
+    tanggal : Moment().format('DD-MM-YYYY'),
+    waktu : Moment().format('H:MM:SS'),
+    username : this.props.username,
+    id_user : this.props.id,
+    total_harga : this.getTotalHarga(),
+    item : this.state.rows.length,
+    email : this.props.email,
+    status : 'Unpaid'
+ }
+ Axios.post(urlApi+'/cart/checkout', newData)
+  .then((res)  => {
+    this.setState({ checkOutDate : newData.tanggal})
+    this.addToTransactionDetail()
+    this.deleteCart()
+    swal('Success', 'Invoice Sent to Email, Please Upload Your Receipt', 'success')
+    this.setState({checkOut:true})
+  })
 }
+// cekOut = () => {
+//   var date = new Date()
+//     var newData = {
+//       idUser : this.props.id,
+//       username : this.props.username,
+//       tanggal : String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(),
+//       waktu : String(date.getHours()).padStart(2, '0') + ':' + String(date.getMinutes()).padStart(2, '0') + ':' + String(date.getSeconds()).padStart(2, '0'),
+//       total : this.getTotalHarga(),
+//       item : this.getItem()
+//     }
+//     Axios.post(urlApi + '/history' , newData)
+//     .then((res) => {
+//       swal('Checkout Status' , 'Sukses','success')
+//       this.deleteCart()
+//     })
+// }
 
   renderJsx = () => {
     var jsx = this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((val) => {
@@ -242,11 +276,11 @@ cekOut = () => {
             <TableRow key={val.id}>
                 <TableCell>{val.id}</TableCell>
                   <TableCell component="th" scope="row">
-                    {val.nama}
+                    {val.nama_product}
                   </TableCell>
-                  <TableCell>Rp. {val.harga}</TableCell>
-                  <TableCell>{val.discount}%</TableCell>
-                  <TableCell>{val.qty}</TableCell>
+                  <TableCell>Rp. {val.harga_product}</TableCell>
+                  <TableCell>{val.discount_product}%</TableCell>
+                  <TableCell>{val.quantity}</TableCell>
                   {/* {
                     this.state.isEdit===true && this.state.editIndex===index?
                   <TableCell align="center">
@@ -255,16 +289,16 @@ cekOut = () => {
                   <TableCell align="center">{val.qty}</TableCell>
                   } */}
                   <TableCell>
-                    {formatMoney((val.harga - (val.harga*(val.discount/100)))*val.qty)}
+                    {formatMoney((val.harga_product - (val.harga_product*(val.discount_product/100)))*val.quantity)}
                   </TableCell>
                   <TableCell>
-                  <Button animated color='blue' onClick={() => this.onBtnEditClick(val)}>
+                  <Button animated color='blue' style={{borderRadius:'40px'}} onClick={() => this.onBtnEditClick(val)}>
                     <Button.Content visible><i class="fas fa-edit"></i></Button.Content>
                     <Button.Content hidden>
-                    <Icon name='edit' />
+                    <Icon name='check' />
                      </Button.Content>
-                 </Button><br/><br/>
-                 <Button animated color='red' onClick={() => this.onBtnDelete(val.id)}>
+                 </Button>
+                 <Button animated color='red' style={{borderRadius:'40px',marginTop:'2px'}} onClick={() => this.onBtnDelete(val.id)}>
                     <Button.Content visible><i class="fas fa-trash"></i></Button.Content>
                     <Button.Content hidden>
                     <Icon name='delete' />
@@ -311,10 +345,10 @@ cekOut = () => {
                   {emptyRows > 0 && (
                     <TableRow>
                       <TableCell colSpan={7}>
-                        <h1 style={{fontWeight:'bold'}}>Total Belanja : <b>{formatMoney(this.getTotalHarga())} </b> </h1>
+                        <h3 style={{fontWeight:'bold'}}>Total Belanja Kamu : <b>{formatMoney(this.getTotalHarga())} </b> </h3>
                         </TableCell>
                       <TableCell colSpan={6} >
-                      <Link to='/history'><Button style={{marginLeft:'-250px'}} animated color='blue' onClick={this.cekOut}>
+                      <Link to='/history'><Button style={{borderRadius:'40px',marginLeft:'-250px'}} animated color='blue' onClick={this.checkOut}>
                           <Button.Content visible>CheckOut</Button.Content>
                           <Button.Content hidden>
                           <Icon name='check' />
@@ -323,7 +357,7 @@ cekOut = () => {
                       </TableCell>
 
                       <TableCell colSpan={6} >
-                      <Link to='/product'><Button style={{marginLeft:'-180px'}} animated color='green' onClick={this.conShop}>
+                      <Link to='/product'><Button style={{borderRadius:'40px',marginLeft:'-180px'}} animated color='green' onClick={this.conShop}>
                           <Button.Content visible>Continue Shop</Button.Content>
                           <Button.Content hidden>
                           <Icon name='check' />
@@ -409,7 +443,8 @@ const mapStateToProps = (state) => {
     role : state.user.role,
     id : state.user.id,
     cart : state.cart.count,
-    username : state.user.username
+    username : state.user.username,
+    email : state.user.email
   }
 }
 

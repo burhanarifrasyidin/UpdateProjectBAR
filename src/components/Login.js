@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link,Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { onLogin } from './../1.actions'
+import { onLogin,cartCount } from './../1.actions'
 import Loader from 'react-loader-spinner'
 import cookie from 'universal-cookie'
 import './../support/css/product.css'
@@ -11,7 +11,10 @@ const Cookie = new cookie()
 class Login extends React.Component{
 
     componentWillReceiveProps(newProps){
-        Cookie.set('userData',newProps.username,{path :'/'}) 
+        if(newProps.username !== ''){
+            this.props.cartCount(newProps.username)
+            Cookie.set('userData',newProps.username,{path :'/'})
+        } 
     }
 
     
@@ -50,9 +53,9 @@ class Login extends React.Component{
 
         return(
             <div className='bl'>
-            <div className="container myBody" style={{minHeight:"600px"}}><br/><br/><br/><br/>
+            <div className="container myBody"><br/><br/><br/><br/>
                 <div className="row justify-content-sm-center ml-auto mr-auto">
-                    <form className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:'white',marginTop:'80px'}} ref="formLogin">
+                    <form className='form' className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:'white',marginTop:'80px'}} ref="formLogin">
                         <fieldset>
                         <h2>Login</h2>
                         <div className="input-group mb-3">
@@ -100,4 +103,4 @@ const mapStateToProps =(state)=>{
     }
 }
 
-export default connect(mapStateToProps,{onLogin})(Login)
+export default connect(mapStateToProps,{onLogin,cartCount})(Login)

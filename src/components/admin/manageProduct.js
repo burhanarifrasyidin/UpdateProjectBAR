@@ -253,7 +253,7 @@ class CustomPaginationActionsTable extends React.Component {
 
 
   renderJsx = () => {
-    var jsx = this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((val) => {
+    var jsx = this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((val,index) => {
         return (
             <TableRow key={val.id}>
                 <TableCell>{val.id}</TableCell>
@@ -266,14 +266,14 @@ class CustomPaginationActionsTable extends React.Component {
                   <TableCell><img src={`http://localhost:2008/`+val.image} alt='pict' width='40px'/></TableCell>
                   <TableCell>{val.deskripsi_product}</TableCell>
                   <TableCell>
-                  <Button animated color='blue' style={{borderRadius:'40px'}}onClick={() => this.setState({modal :true , editItem: val})}>
-                    <Button.Content visible>Edit</Button.Content>
+                  <Button animated color='blue' style={{borderRadius:'40px'}} onClick={() => this.setState({modal :true , editItem: val})}>
+                    <Button.Content visible><i class="fas fa-edit"></i></Button.Content>
                     <Button.Content hidden>
-                    <Icon name='edit' />
+                    <Icon name='check' />
                      </Button.Content>
                  </Button>
                  <Button animated color='red' style={{borderRadius:'40px',marginTop:'2px'}} onClick={() => this.onBtnDelete(val.id)}>
-                    <Button.Content visible>Del</Button.Content>
+                    <Button.Content visible><i class="fas fa-trash"></i></Button.Content>
                     <Button.Content hidden>
                     <Icon name='delete' />
                      </Button.Content>
@@ -287,7 +287,7 @@ class CustomPaginationActionsTable extends React.Component {
 
   dropdownCategory = () => {
     var jsx = this.state.category.map((val) => {
-      return <option value={val.id}>{val.category}</option>
+      return <option value={val.category}>{val.category}</option>
     })
     return jsx
   }
@@ -295,6 +295,14 @@ class CustomPaginationActionsTable extends React.Component {
   handleChangeRowsPerPage = event => {
     this.setState({ page: 0, rowsPerPage: event.target.value });
   };
+
+  onBtnEditClick = (param) => {
+    this.setState({isEdit : true, editItem : param})
+  } 
+
+  onBtnBack = () => {
+    this.setState({isEdit : false, editItem : {}})
+  }
 
   render() {
     const { classes } = this.props;
@@ -304,7 +312,11 @@ class CustomPaginationActionsTable extends React.Component {
       return (
         <div className='container' style={{marginTop:'80px'}}>
           {/* {======= Add Produk =========} */}
-          <h2>Add Product ~ Bike</h2>
+          <input style={{marginLeft:'10px',borderRadius:'20px',marginBottom:'2px'}} type="button" className='btn btn-secondary' onClick={this.onBtnEditClick} value=' + '></input>
+            {
+              this.state.isEdit === true ?
+          <div>
+          <h2>Add Product ~ OnOSepeda</h2>
           <div className = 'row mt-3 mb-2'>
               <div className= 'col-md-4'>
                   <input className="form-control mb-1" ref ="nama" type="text" placeholder='Masukkan nama barang'/>
@@ -319,12 +331,16 @@ class CustomPaginationActionsTable extends React.Component {
               <div className= 'col-md-3'>
                   <input style={{display:"none"}} ref="input" type="file" onChange={this.onChangeHandler}/>
                   <input type="button" style={{borderRadius:'40px'}} className="form-control btn-secondary mb-1" onClick={() => this.refs.input.click()} value={this.valueHandler()}/>
-                  <input type="button" style={{borderRadius:'40px'}} className="form-control btn-secondary mb-1" onClick={this.onBtnAdd} value="ADD PRODUCT"/>
+                  <input type="button" style={{borderRadius:'40px'}} className="form-control btn-primary mb-1" onClick={this.onBtnAdd} value="ADD PRODUCT"/>
+                  <input type="button" style={{borderRadius:'40px'}} className="form-control btn-dark mb-1" onClick={this.onBtnBack} value='Back'/>
                   {
                     this.state.error ? <p style={{color:'red'}}>{this.state.error}</p> : null
                   }
               </div>
           </div>
+        </div>
+            : null
+          }
           {/* {============ End of Add Produk ===============} */}
           <Paper className={classes.root}>
             <div className={classes.tableWrapper}>

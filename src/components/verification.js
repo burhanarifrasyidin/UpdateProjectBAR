@@ -1,6 +1,7 @@
 import React from 'react'
 import queryString from 'query-string'
 import Axios from 'axios'
+import {Link} from 'react-router-dom'
 
 class Verify extends React.Component{
     componentDidMount(){
@@ -21,8 +22,9 @@ class Verify extends React.Component{
 
     render(){
         return (
-            <div className="container">
-                Email Berhasil di verifikasi
+            <div className="container" style={{paddingTop:'150px'}}>
+                <h1 style={{textAlign:'center'}}>Email Berhasil di Verifikasi,Silahkan Berbelanja</h1>
+                <Link to='/'><input style={{marginLeft:'520px'}} className='btn btn-primary' type='button' value='shopping'></input></Link>
             </div>
         )
     }

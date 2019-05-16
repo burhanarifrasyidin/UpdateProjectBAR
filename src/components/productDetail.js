@@ -7,7 +7,7 @@ import {cartCount} from './../1.actions'
 
 
 class ProductDetail extends React.Component{
-    state = {product : {}}
+    state = {product : {},cart:0}
     componentDidMount(){
         this.getDataApi()
     }
@@ -29,53 +29,32 @@ class ProductDetail extends React.Component{
     }
 
     addBtnCart = () => {
+        var qty = this.refs.inputQty.value
         var newData = {
-            idUser : this.props.id,
-            discount : this.state.product.discount,
-            nama : this.state.product.nama,
-            harga : this.state.product.harga,
-            qty : this.refs.inputQty.value,
+            id_user: this.props.id,
+            id_product : this.state.product.id,
+            quantity : qty
         }
-        Axios.get(urlApi + '/cart?nama=' + this.state.product.nama + '&idUser=' + this.props.id).then((res) => {
-            if(res.data.length > 0){
-                Axios.put(urlApi + '/cart/' + res.data[0].id, {...newData, qty: parseInt(res.data[0].qty) + parseInt(this.refs.inputQty.value) })
-                swal('Status Add' , 'Success Add to Cart' , 'success')
-            }else{
-                Axios.post(urlApi + '/cart',newData)
-                .then((res) => {
-                    swal('Status Add' , 'Success Add to Cart' , 'success')
-                    this.props.cartCount(this.props.username)
-                })
-                .catch((err) => console.log(err))
-            }
+       Axios.post(urlApi+'/cart/addtocart', newData)
+        .then((res) => {
+           swal("Thanks for the Purchase", res.data, "success")
+           this.props.cartCount(this.props.username)
         })
-
+        .catch((err) => console.log(err))
     }
 
     addBtnWish = () => {
         var newData = {
-            idUser : this.props.id,
-            discount : this.state.product.discount,
-            nama : this.state.product.nama,
-            harga : this.state.product.harga,
-            deskripsi : this.state.product.deskripsi,
-            qty : 1,
+            id_user: this.props.id,
+            id_product : this.state.product.id,
+            quantity : 1
         }
-        Axios.get(urlApi + '/wishlist?nama=' + this.state.product.nama + '&idUser=' + this.props.id).then((res) => {
-            if(res.data.length > 0){
-                Axios.put(urlApi + '/wishlist/' + res.data[0].id, {...newData, qty: parseInt(res.data[0].qty) + parseInt(this.refs.inputQty.value) })
-                swal('Status Add' , 'Success Add to Wishlist' , 'success')
-            }else{
-                Axios.post(urlApi + '/wishlist',newData)
-                .then((res) => {
-                    swal('Status Add' , 'Success Add to Wishlist' , 'success')
-                    // this.props.cartCount(this.props.username)
-                })
-                .catch((err) => console.log(err))
-            }
+       Axios.post(urlApi+'/wishlist/addtoWish', newData)
+        .then((res) => {
+           swal("Add to wishlist", res.data, "success")
+           this.props.cartCount(this.props.username)
         })
-
-
+        .catch((err) => console.log(err))
     }
 
     render(){
@@ -123,9 +102,9 @@ class ProductDetail extends React.Component{
                         </div>
                          :
                          <div className='row mt-4'>
-                         <input type='button' className='btn border-secondary col-md-2 ml-3' value='Add To Wishlist' onClick={this.addBtnWish}></input>
+                         <input type='button' className='btn border-secondary col-md-2 ml-3' value='Add To Wishlist' onClick={()=>this.addBtnWish()}></input>
                          <input type='button' className='btn btn-primary col-md-2 ml-3' value='Beli Sekarang'></input>
-                         <input type='button' className='btn btn-success col-md-3 ml-3' value='Add To Cart' onClick={this.addBtnCart}></input>
+                         <input type='button' className='btn btn-success col-md-3 ml-3' value='Add To Cart' onClick={()=>this.addBtnCart()}></input>
                      </div>
                         }
                     </div>

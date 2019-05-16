@@ -3,8 +3,8 @@ const INITIAL_STATE = {
     username: "",
     error: "",
     loading: false,
-    role : '',
-    cookie:false
+    role : "",
+    cookie:false,email:""
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -13,7 +13,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'LOGIN_SUCCESS' :
         return {
             ...INITIAL_STATE,
-            username : action.payload.username, role : action.payload.role, id : action.payload.id,cookie : true
+            username : action.payload.username, role : action.payload.role, id : action.payload.id,email : action.payload.email,cookie : true
         }
         case 'REGISTER_SUCCESS' :
         return {
