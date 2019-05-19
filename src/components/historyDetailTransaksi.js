@@ -43,14 +43,13 @@ class HistoryDetail extends React.Component{
         return (
             <div className="container" style={{paddingTop:'90px'}}>
             <div className = 'row justify-content-center mb-4'>
-                <div className= 'col-md-5'>
-                    <table className=" table table-responsive table-dark">
+                    <table className=" table table-dark">
                         <thead>
                         <tr>
-                            <td>No</td>
-                            <td>Nama Produk</td>
-                            <td>Quantity</td>
-                            <td>Harga</td>
+                            <td>NO</td>
+                            <td>NAMA PRODUCT</td>
+                            <td>QUANTITY</td>
+                            <td>HARGA</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -58,7 +57,7 @@ class HistoryDetail extends React.Component{
                         </tbody>
                     </table>
                         <Link to={'/history'}><input type='button' className='btn btn-success' value='Back'/></Link>
-                </div>
+
             </div>
         </div>
         )

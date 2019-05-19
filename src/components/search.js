@@ -30,7 +30,6 @@ class Search extends React.Component{
     }
 
     addBtnCart = (param)=> {
-        // console.log(this.state.listProduct[param])
         var newData = {
             id_user: this.props.id,
             id_product : this.state.listProduct[param].id,
@@ -48,6 +47,9 @@ class Search extends React.Component{
         var arrSearchAndFilter = this.state.listProduct.filter((val) => {
             return val.nama_product.toLowerCase().includes(this.props.search)
         })
+        if(this.props.search === ''){
+            arrSearchAndFilter = []
+        }
         var jsx = arrSearchAndFilter.map((val,index) => {
                 return <div className="card col-md-4 mr-5 mt-3 ml-5" style={{width: '18px'}}>
                 <Link to={'/product-detail/' + val.id}><img src={ `http://localhost:2008/${val.image}`} height="200px" className="card-img-top" alt=".." /></Link>

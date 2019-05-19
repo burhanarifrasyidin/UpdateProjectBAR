@@ -55,7 +55,7 @@ class Login extends React.Component{
             <div className='bl'>
             <div className="container myBody"><br/><br/><br/><br/>
                 <div className="row justify-content-sm-center ml-auto mr-auto">
-                    <form className='form' className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:'white',marginTop:'80px'}} ref="formLogin">
+                    <form className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:'none',marginTop:'120px',marginRight:'550px'}} ref="formLogin">
                         <fieldset>
                         <h2>Login</h2>
                         <div className="input-group mb-3">
@@ -86,8 +86,7 @@ class Login extends React.Component{
                             </div>
                             <div className="btn my-auto"><p>Don't have Account? <Link to="/register" className="border-bottom">Sign Up!</Link></p></div>
                         </fieldset>
-                    </form>
-                    
+                    </form>                 
                 </div>                
             </div>
             </div>

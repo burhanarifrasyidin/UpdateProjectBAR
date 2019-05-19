@@ -21,6 +21,8 @@ import { connect } from 'react-redux';
 import PageNotFound from './../pageNotFound';
 import swal from 'sweetalert';
 import {Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import QueryString from 'query-string';
+
 
 const actionsStyles = theme => ({
   root: {
@@ -124,12 +126,13 @@ class CustomPaginationActionsTable extends React.Component {
     selectedFile:null,
     error:'',
     modal:false,
-    selectedFileEdit:null,category:[]
+    selectedFileEdit:null,category:[],filter:[]
   };
 
   componentDidMount(){
     this.getDataApi()
     this.getCategory()
+    this.getDataUrl()
   }
 
   getDataApi = () => {
@@ -251,6 +254,65 @@ class CustomPaginationActionsTable extends React.Component {
       .catch((err) => console.log(err))
   };
 
+  getDataUrl = () => {
+    var obj = QueryString.parse(this.props.location.search)
+    if(this.props.location.search){
+        if(obj.category > 0){
+            Axios.get(urlApi + `/product/filterprod?category=${obj.category}`)
+            .then((res) => {
+                this.setState({rows : res.data})
+            })
+            .catch((err) => console.log(err))
+        }
+    }
+   
+}
+
+Dropdown = () => {
+  return <select ref = 'category' className='form-control'>
+              <option value={0}>All Category</option>
+              <option value={1}>XC</option>
+              <option value={2}>Frame</option>
+              <option value={3}>Botol</option>
+              <option value={4}>Bell</option>
+              <option value={5}>Crankshaft</option>
+              <option value={6}>Handle Bar</option>
+              <option value={7}>Handle Grip</option>
+              <option value={8}>Handle Stem</option>
+              <option value={9}>Kunci</option>
+              <option value={10}>Nut</option>
+              <option value={11}>RB</option>
+              <option value={12}>Sadle</option>
+              <option value={13}>Screw</option>
+              <option value={14}>Shift Lever</option>
+              <option value={15}>Stand</option>
+
+          </select>
+}
+
+filterData = () => {
+    var category_product = this.refs.category.value
+    this.pushUrl()
+    if(category_product == 0){
+        this.getDataApi()
+    }
+    else {
+        Axios.get(urlApi + `/product/filterprod?category=${category_product}`)
+            .then((res) => {
+                this.setState({rows : res.data})
+            })
+            .catch((err) => console.log(err))
+    }
+    
+}
+
+pushUrl = () => {
+  var newLink = '/manage'
+  if(this.refs.category.value > 0){
+      newLink += '?category=' + this.refs.category.value
+  } 
+  this.props.history.push(newLink)
+}
 
   renderJsx = () => {
     var jsx = this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((val,index) => {
@@ -342,6 +404,26 @@ class CustomPaginationActionsTable extends React.Component {
             : null
           }
           {/* {============ End of Add Produk ===============} */}
+
+          {/* ================== Filter Product ==================*/}
+          <div className='row mb-3' style={{marginTop:'6px'}}>
+             {/* <div className='col-md-3'>
+                <input type='text' ref='input' placeholder='search by name' className='form-control'></input>
+             </div>
+         */}
+            <div className='col-md-3'>
+
+                  {this.Dropdown()}
+
+            </div>
+            <div className='col-md-1'>
+                <input type='button' className='btn btn-primary' value='search' onClick={this.filterData}></input>       
+            </div>
+          </div>
+
+          {/* ================== End Filter Product ==================*/}
+          
+
           <Paper className={classes.root}>
             <div className={classes.tableWrapper}>
               <Table className={classes.table}>

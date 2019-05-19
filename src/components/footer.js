@@ -1,5 +1,4 @@
 import React from 'react'
-import { relative } from 'path';
 
 
 class Footer extends React.Component{

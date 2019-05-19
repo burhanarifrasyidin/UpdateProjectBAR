@@ -19,7 +19,7 @@ import { Button,Icon,Input } from 'semantic-ui-react';
 import { urlApi } from './../support/urlApi';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
-import {Link,Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {cartCount,resetCount} from './../1.actions';
 import Moment from 'moment'
 

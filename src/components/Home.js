@@ -7,6 +7,8 @@ import './../support/css/product.css'
 import {Link} from 'react-router-dom'
 import swal from 'sweetalert'
 import {cartCount} from './../1.actions'
+import SaleProduct from './saleProduct'
+import Bounce from 'react-reveal/Bounce';
 
 
 class Home extends React.Component{
@@ -75,17 +77,27 @@ class Home extends React.Component{
                 <div className="row justify-content-center">    
                     <div className="col-lg-12">
                         <div className="my-4" style={{paddingTop:'80px'}}>
-                        <h1 style={{textAlign:'center',fontFamily:'sanserif',fontSize:'50px',fontWeight:'bold'}}>Selamat Datang Di Website <br/><span style={{color:'blue'}}>OnOSepeda.Com</span></h1>
-                            <Carousel />
-                        <Link to='/product'><div><input type='button' style={{fontFamily:'sanserif',fontSize:'50px',fontWeight:'bold',justifyContent:'center',marginTop:'18px',marginLeft:'360px'}} className='btn btn-primary' value='OUR PRODUCT'></input></div></Link>
+                            <h1 style={{textAlign:'center',fontFamily:'sanserif',fontSize:'50px',fontWeight:'bold'}}>Selamat Datang Di Website <br/><span style={{color:'blue'}}>OnOSepeda.Com</span></h1>
+                                <Carousel />
+                            <Bounce>
+                            <Link to='/product'>
+                            <hr/>
+                            <h1 style={{textAlign:"center", fontWeight:"1000"}}>Super Discount Deals</h1>         
+                                <SaleProduct/>       
+                            <br/>
+                            <div>
+                                <input type='button' style={{fontFamily:'sanserif',fontSize:'50px',fontWeight:'bold',justifyContent:'center',marginTop:'18px',marginLeft:'360px',borderRadius:'20px'}} className='btn btn-primary' value='OUR PRODUCT'></input>
+                            </div>
+                            </Link>
+                            </Bounce>
                         </div>
                     </div>
                 {this.renderProdukJsx()}
                 </div>
-                <div className='row justify-content-center'>
+                     <div className='row justify-content-center'>
                          <p style={{cursor:'pointer',fontStyle:'italic'}} onClick={()=>this.setState({dataPage:this.state.dataPage+5})}>View More</p>
                     </div>
-            </div>
+                </div>
             </div>
 
         )

@@ -11,12 +11,13 @@ import ProductDetail from './components/productDetail'
 import ScrollToTop from './components/scrollToTop' 
 import Search from './components/search'
 import { connect } from 'react-redux'
-import { keepLogin,cartCount,cookieChecked } from './1.actions'
+import { keepLogin,cartCount,cookieChecked,countTransaksi } from './1.actions'
 import { Route,withRouter,Switch } from 'react-router-dom'    // withrouter =>untuk tersambung ke reducer dengan connect, tapi dalam komponen ada routing
 import cookie from 'universal-cookie'
 import Wishlist from './components/Wishlist'
 import Cart from './components/cart'
 import ManageTransaksi from './components/admin/manageTransaction'
+import PaymentList from './components/paymentList'
 import Histori from './components/historyTransaksi'
 import HistoryDetail from './components/historyDetailTransaksi'
 import Verify from './components/verification'
@@ -35,6 +36,7 @@ class App extends Component {
     if(terserah !== undefined){
       this.props.keepLogin(terserah)
       this.props.cartCount(terserah)
+      this.props.countTransaksi()
     }else{
       this.props.cookieChecked()
     }
@@ -57,6 +59,7 @@ class App extends Component {
             <Route path='/manage' component={Manage} exact/>
             <Route path='/managecategory' component={ManageCategory} exact/>
             <Route path='/managetransaksi' component={ManageTransaksi} exact/>
+            <Route path='/paymentlist' component={PaymentList} exact/>
             {
               this.props.username === '' ?
             <Route path='/payment/:id' component={Payment} exact/>
@@ -109,8 +112,9 @@ class App extends Component {
       cookie : state.user.cookie,
       id : state.user.id,
       username : state.user.username,
-      cart : state.cart.cart
+      cart : state.cart.cart,
+      transaksi : state.trans.transaksi
     }
   }
   
-  export default withRouter(connect(mapStateToProps,{keepLogin,cartCount,cookieChecked})(App));
+  export default withRouter(connect(mapStateToProps,{keepLogin,cartCount,cookieChecked,countTransaksi})(App));

@@ -73,10 +73,9 @@ class Register extends React.Component{
         }
         return(
             <div className="br">
-            <div className="container myBody " style={{minHeight:"600px"}}><br/><br/>
-            <div className="row justify-content-sm-center ml-auto mr-auto mt-3">
-                        
-                        <form className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:"white",marginTop:'80px'}} ref="formLogin">
+            <div className="container myBody " style={{minHeight:"600px",marginLeft:'600px'}}><br/><br/>
+                <div className="row justify-content-sm-center ml-auto mr-auto mt-3">                          
+                        <form className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:"none",marginTop:'120px'}} ref="formLogin">
                             <fieldset>
                             <h2>Create Account</h2>
                             <div className="input-group mb-2">
@@ -126,14 +125,12 @@ class Register extends React.Component{
                                     </div>
                                         
                                 </div>
-                                <div className="btn my-auto"><p>Already have Account? <Link to="/login" className="border-bottom">Login</Link></p></div>
-                                
+                                <div className="btn my-auto"><p>Already have Account? <Link to="/login" className="border-bottom">Login</Link></p></div>         
                             </fieldset>
-                        </form>
-                        
-                    </div>                
-                </div>
-                </div>
+                        </form>        
+                 </div>                
+            </div>
+            </div>
         )
     }
 } 

@@ -64,8 +64,8 @@ class Wishlist extends React.Component{
                                  : null
                                  }
                                  <p style={{display:'inline',marginLeft:'10px',fontWeight:'400'}}>Rp. {val.harga_product - (val.harga_product*(val.discount_product/100))}</p>
-                                 <input style={{borderRadius:'40px'}} type="button" className="d-block btn btn-primary" onClick={()=>this.addBtnCart(index)} value="Add To Cart"></input>
-                                 <input style={{marginTop:'4px',borderRadius:'40px'}} type="button" className="d-block btn btn-danger" onClick={()=>this.onBtnDelete(val.id)} value="Del Wishlist"></input>
+                                 <button style={{borderRadius:'none',display:'inline'}} className="d-block btn btn-primary" onClick={()=>this.addBtnCart(index)} ><i class="fas fa-shopping-cart"></i></button>
+                                 <button style={{marginTop:'-33px',borderRadius:'none',marginLeft:'50px'}} className="d-block btn btn-danger" onClick={()=>this.onBtnDelete(val.id)}><i class="fas fa-trash"></i></button>
                             </div>
                     </div>
                 )

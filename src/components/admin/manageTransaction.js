@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import PageNotFound from './../pageNotFound'
 import {Modal, ModalHeader, ModalBody, ModalFooter,Button} from 'reactstrap'
 import swal from 'sweetalert'
+import {countTransaksi} from './../../1.actions'
 
 function formatMoney(number) {
     return number.toLocaleString('in-RP', { style: 'currency', currency: 'IDR' });
@@ -35,10 +36,28 @@ class ManageTransaction extends React.Component{
             .then((res) => {
                 swal('Success', res.data, 'success')
                 this.getDataTransactions()
+                this.props.countTransaksi()
             })
             .catch((err) => {
                 console.log(err)
             })
+    }
+
+    rejectTransaction = (param) => {
+        var newData = {
+            status : 'Rejected',
+            no : param.order_number,
+            username : param.username,
+            email : param.email
+        }
+        
+        Axios.put(urlApi+ '/transaksi/rejecttrans/'+ param.id, newData)
+            .then((res) => {
+                swal('Success', res.data, 'success')
+                this.getDataTransactions()
+                this.props.countTransaksi()
+            })
+            .catch((err) => console.log(err))
     }
 
     renderJsx = () => {
@@ -56,7 +75,11 @@ class ManageTransaction extends React.Component{
                             <input type='button' className='btn btn-danger' value='Receipt' onClick={() => this.setState({receipt : val.bukti_transaksi, modal : true })} />
                         </td>
                         <td>
-                            <input type='button' className='btn btn-success' value='Approve' onClick={() => this.approveTransaction(val.id)} /></td>
+                            <input type='button' className='btn btn-success' value='Approve' onClick={() => this.approveTransaction(val.id)} />
+                        </td>
+                        <td>
+                            <input type='button' className='btn btn-primary' value='Reject' onClick={() => this.rejectTransaction(val)}/>  
+                        </td>
                     </tr>
             )
         })
@@ -79,6 +102,7 @@ class ManageTransaction extends React.Component{
                             <th scope="col">TOTAL HARGA</th>
                             <th scope="col">STATUS</th>
                             <th scope="col">RECEIPT CUST</th>
+                            <th scope="col">ACT</th>
                             <th scope="col">ACT</th>
                         </tr>
                         </thead>
@@ -118,4 +142,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ManageTransaction) 
+export default connect(mapStateToProps,{countTransaksi})(ManageTransaction) 

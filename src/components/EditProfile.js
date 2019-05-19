@@ -126,43 +126,43 @@ class EditProfile extends React.Component{
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-2">
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={val.username}></input>
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={': ' + val.username}></input>
                         </div>                
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-2">
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={val.nama}></input>
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={': ' + val.nama}></input>
                         </div>                
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                         <div class="col-sm-4">
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={val.tanggal_lahir}></input>
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={': ' + val.tanggal_lahir}></input>
                         </div>                
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Alamat</label>
                         <div class="col-sm-5">
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={val.alamat}></input>
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={': ' + val.alamat}></input>
                         </div>                
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                         <div class="col-sm-2">
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={val.jenis_kelamin}></input>
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={': ' + val.jenis_kelamin}></input>
                         </div>                
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-4">
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={val.email}></input>
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={': ' + val.email}></input>
                         </div>                
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Telephone</label>
                         <div class="col-sm-3">
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={val.phone}></input>
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={': ' + val.phone}></input>
                         </div>                
                     </div>
                     <input style={{marginLeft:'150px',borderRadius:'20px'}} type="button" className='btn btn-primary' value='Edit Profile' onClick={() => this.setState({modal :true , editItem: val})}></input>
@@ -239,7 +239,12 @@ class EditProfile extends React.Component{
                         <input className="form-control mb-1" ref ="nama" type="text" placeholder='Ketik Nama'/>
                         <input className="form-control mb-1" ref="tanggal" type="text" placeholder='Ketik Tanggal Lahir'/>
                         <input className="form-control mb-1" ref="alamat" type="text" placeholder='Ketik Alamat'/>
-                         <input className="form-control mb-1" ref="jenis" type="text" placeholder='Ketik Jenis Kelamin'/>
+                        <select className='form-control mt-3' ref='jenis'>
+                                <option>Pilih Jenis Kelamin</option>
+                                <option>pria</option>
+                                <option>wanita</option>
+                            </select><br/>
+                         {/* <input className="form-control mb-1" ref="jenis" type="text" placeholder='Ketik Jenis Kelamin'/> */}
                         <input style={{display:"none"}} ref="input" type="file" onChange={this.onChangeHandler}/>
                         <input type="button" style={{borderRadius:'40px'}} className="form-control btn-secondary mb-1" onClick={() => this.refs.input.click()} value={this.valueHandler()}/>
                          {
