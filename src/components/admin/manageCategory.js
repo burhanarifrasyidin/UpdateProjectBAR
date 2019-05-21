@@ -10,13 +10,11 @@ class ManageCategory extends React.Component{
         category : [],
         isEditCat : 0,
         editItem : {},
-        dataPage : 5,filterCat:5
+        dataPage : 5
     }
 
     componentDidMount(){
         this.getCategory()
-        // this.getDataUrl()
-        // this.getDataCat()
     }
 
     getCategory = () => {
@@ -24,40 +22,6 @@ class ManageCategory extends React.Component{
           .then((res) => this.setState({category : res.data}))
           .catch((err) => console.log(err))
     }
-
-    // getDataUrl = () => {
-    //     if(this.props.location.search){
-    //       var obj = QueryString.parse(this.props.location.search)
-    //       if(obj.category){
-    //         this.setState({filterCat:obj.category})
-    //       }
-    //     }
-    // }
-
-    // getDataCat = () => {
-    //     Axios.get(urlApi + '/category/filtercat')
-    //     .then((res)=>{
-    //       this.setState({dataCategory:res.data})
-    //     })
-    // }
-
-    // pushUrl = () => {
-    //     var newLink = '/filtercat'
-    //     var params= []
-    //     if(this.refs.dropdown.value > 0){
-    //       params.push({
-    //         params:'category',
-    //         value:this.refs.dropdown.value
-    //       })
-    //     }
-    //     for(var i = 0;i<params.length;i++){
-    //         if(i == 0){
-    //           newLink += '?' + params[i].params + '=' + params[i].value
-    //         }
-    //       }
-    //     this.props.history.push(newLink)
-
-    // }
 
     onBtnSearch = () => {
         var category = this.refs.dropdown.value
@@ -151,21 +115,6 @@ class ManageCategory extends React.Component{
                         <div className= 'col-md-2'>
                             <input type="button" className="btn form-control btn-secondary mb-1" onClick={this.onBtnAddCat} value="Add Category"/>
                         </div>
-                        <div className='col-md-3'>
-                            <select ref='dropdown' className='form-control'>
-                                 <option value={0}>All Category</option>
-                                    {
-                                    this.state.category.map((val)=>{
-                                        return(
-                                        <option value={val.category}>{val.category}</option>
-                                        )
-                                    })
-                                    }
-                            </select>
-                        </div>
-                <div className='col-md-1'>
-                <input type='button' className='btn btn-primary' value='search' onClick={this.onBtnSearch}></input>
-                </div>
                     </div>
                     <div className="row justify-content-center">
                             <table style={{fontSize:'15px'}} className="table table-hover table-dark">

@@ -270,22 +270,30 @@ class CustomPaginationActionsTable extends React.Component {
 
 Dropdown = () => {
   return <select ref = 'category' className='form-control'>
-              <option value={0}>All Category</option>
-              <option value={1}>XC</option>
-              <option value={2}>Frame</option>
-              <option value={3}>Botol</option>
-              <option value={4}>Bell</option>
-              <option value={5}>Crankshaft</option>
-              <option value={6}>Handle Bar</option>
-              <option value={7}>Handle Grip</option>
-              <option value={8}>Handle Stem</option>
-              <option value={9}>Kunci</option>
-              <option value={10}>Nut</option>
-              <option value={11}>RB</option>
-              <option value={12}>Sadle</option>
-              <option value={13}>Screw</option>
-              <option value={14}>Shift Lever</option>
-              <option value={15}>Stand</option>
+              {/* <option value={0}>All Category</option>
+              <option value={'XC'}>XC</option>
+              <option value={'Frame'}>Frame</option>
+              <option value={'Botol'}>Botol</option>
+              <option value={'Bell'}>Bell</option>
+              <option value={'Crankshaft'}>Crankshaft</option>
+              <option value={'Handle Bar'}>Handle Bar</option>
+              <option value={'Handle Grip'}>Handle Grip</option>
+              <option value={'Handle Stem'}>Handle Stem</option>
+              <option value={'Kunci'}>Kunci</option>
+              <option value={'Nut'}>Nut</option>
+              <option value={'RB'}>RB</option>
+              <option value={'Sadle'}>Sadle</option>
+              <option value={'Screw'}>Screw</option>
+              <option value={'Shift Lever'}>Shift Lever</option>
+              <option value={'Stand'}>Stand</option> */}
+               <option value={0}>All Category</option>
+                    {
+                      this.state.category.map((val)=>{
+                        return(
+                         <option value={val.category}>{val.category}</option>
+                        )
+                        })
+                    }
 
           </select>
 }
@@ -406,18 +414,12 @@ pushUrl = () => {
           {/* {============ End of Add Produk ===============} */}
 
           {/* ================== Filter Product ==================*/}
-          <div className='row mb-3' style={{marginTop:'6px'}}>
-             {/* <div className='col-md-3'>
-                <input type='text' ref='input' placeholder='search by name' className='form-control'></input>
-             </div>
-         */}
+          <div className='row mb-3' style={{marginTop:'6px',marginLeft:'400px'}}>
             <div className='col-md-3'>
-
                   {this.Dropdown()}
-
             </div>
             <div className='col-md-1'>
-                <input type='button' className='btn btn-primary' value='search' onClick={this.filterData}></input>       
+                <input type='button' className='btn btn-primary' value='Filter' onClick={this.filterData}></input>       
             </div>
           </div>
 

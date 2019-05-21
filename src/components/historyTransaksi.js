@@ -69,7 +69,7 @@ class History extends React.Component{
 filterData = () => {
     var bulan = this.refs.bulan.value
     this.pushUrl()
-    if(bulan === 0){
+    if(bulan == 0){
         this.getDataApi()
     }
     else {
@@ -104,7 +104,7 @@ pushUrl = () => {
                         <td>{val.waktu}</td>
                         <td>{val.item}</td>
                         <td>{formatMoney(val.total_harga)}</td>
-                        <Link to={'/historydetail/'+ val.id}><input type='button' className='btn btn-danger' value='Detail'/></Link>
+                        <Link to={'/history-detail/' + val.id}><input type='button' className='btn btn-danger' value='Detail'/></Link>
                     </tr>
             )
         })
@@ -116,14 +116,14 @@ pushUrl = () => {
         if(this.props.username !== ''){
             return (
                 <div className="container" style={{paddingTop:'90px'}}>
-                <h2 style={{marginTop:'5px'}}>History Transaksi Untuk {this.props.username}</h2>
+                <h2 style={{marginTop:'5px'}}>History Transaksi Untuk Bpk/Ibu {this.props.username}</h2>
                 <h4>Filter by Month</h4>
                     <div className='row'>
                         <div className='col-md-3'>
                             {this.Dropdown()}
                         </div>
                         <div className='col-md-3' >
-                            <input type='button' className='btn btn-primary' style={{}} onClick={this.filterData} value='Search'/>
+                            <input type='button' className='btn btn-primary' style={{}} onClick={this.filterData} value='Filter'/>
                         </div>
                     </div>
 

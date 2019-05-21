@@ -60,7 +60,7 @@ class HeaderKu extends Component {
                         <NavItem >
                         <div className = "input-group"
                             style = {{width: "350px",marginTop:'2.5px'}}>
-                            <input type = "text" ref = "searchBook" onChange={() => this.setState({searchData:this.refs.searchBook.value})} className = "form-control border-primary"
+                            <input type = "text" ref = "searchBook" onChange ={this.valueHandler} className = "form-control border-primary"
                             placeholder = "Masukkan kata kunci ... " />
                             <div className = "input-group-append mr-2" >
                                 <Link to={'/product?q='+this.state.search}><button  style={{color:'white'}} className = "btn border-primary" type = "button" onClick ={this.onBtnSearch}><i className = "fas fa-search" /></button>
@@ -103,15 +103,15 @@ class HeaderKu extends Component {
                     </NavItem>
 
                     <NavItem >
-                        <Link to = "/cart" > < NavLink className = "btn btn-default border-primary" style = {{fontSize: "14px",color:'white'}} ><i class="fas fa-shopping-cart"></i> {this.props.cart} Cart </NavLink>
+                        <Link to = "/cart"> <button className = "btn btn-default border-primary" data-toggle="tooltip" data-placement="bottom" title="Cart" style = {{fontSize: "14px",color:'white',marginTop:'3px'}} ><i class="fas fa-shopping-cart"></i> {this.props.cart}</button>
                         </Link >
                     </NavItem> 
                         {this.props.role === 'admin' ? 
                             <NavItem>
-                                    <Link to='/managetransaksi'><NavLink className="btn btn-default border-primary" style={{color:"white",marginLeft:'8px'}}><i class="fas fa-bell"></i> {this.props.transaksi ? this.props.transaksi : null} Trans</NavLink></Link>
+                                    <Link to='/managetransaksi'><button className="btn btn-default border-primary" data-toggle="tooltip" data-placement="bottom" title="Transaksi" style={{color:"white",marginLeft:'8px',marginTop:'3px'}}><i class="fas fa-bell"></i> {this.props.transaksi ? this.props.transaksi : null}</button></Link>
                             </NavItem> :  
                              <NavItem>
-                                    <Link to='/paymentlist'><NavLink className="btn btn-default border-primary" style={{color:"white",marginLeft:'8px'}}><i class="fas fa-bell"></i> Status</NavLink></Link>
+                                    <Link to='/paymentlist'><button className="btn btn-default border-primary" data-toggle="tooltip" data-placement="bottom" title="Status" style={{color:"white",marginLeft:'8px',marginTop:'3px'}}><i class="fas fa-bell"></i></button></Link>
                                     </NavItem>
                         }
                     <UncontrolledDropdown nav inNavbar>
@@ -143,12 +143,20 @@ class HeaderKu extends Component {
                             <Link to='/history'><DropdownItem>
                                 History Transaction
                             </DropdownItem></Link>
-                            <Link to='/payment'><DropdownItem>
-                                Upload Bukti Pembayaran
-                            </DropdownItem></Link>
-                            <Link to='/wishlist'><DropdownItem>
-                                Wishlist Product
-                            </DropdownItem></Link>
+                            {
+                                this.props.role === 'user' ?
+                                <Link to='/payment'><DropdownItem>
+                                    Upload Bukti Pembayaran
+                                </DropdownItem></Link>
+                                : null
+                            }
+                            {
+                                this.props.role === 'user' ?
+                                <Link to='/wishlist'><DropdownItem>
+                                    Wishlist Product
+                                </DropdownItem></Link>
+                                : null
+                            }
                             <Link to='/editprofile'><DropdownItem>
                                 Edit Profile
                             </DropdownItem></Link>

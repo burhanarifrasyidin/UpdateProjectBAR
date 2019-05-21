@@ -70,7 +70,7 @@ class App extends Component {
             <Route path='/history/:id' component={Histori} exact/>
             : <Route path='/history/' component={Histori} exact/>
             }
-            <Route path='/historydetail/:id' component={HistoryDetail} exact/>
+            <Route path='/history-detail/:id' component={HistoryDetail} exact/>
             {
               this.props.username === '' ?
             <Route path='/cart/:id' component={Cart} exact/>

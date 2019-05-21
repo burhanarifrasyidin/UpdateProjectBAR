@@ -138,7 +138,9 @@ class ManageTransaction extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        role : state.user.role
+        role : state.user.role,
+        email : state.user.email
+
     }
 }
 

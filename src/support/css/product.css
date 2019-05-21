@@ -68,7 +68,7 @@ img{
 
 .footer{
  background-image: linear-gradient(178deg,#fbfafd,#ffffff);
- z-index: 1;
+ z-index: 0;
 
 }
 

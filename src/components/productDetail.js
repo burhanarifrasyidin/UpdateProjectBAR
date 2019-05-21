@@ -81,8 +81,7 @@ class ProductDetail extends React.Component{
                     </div>
                     <div className='col-md-8'>
                         <h1 style={{color:'#4C4C4C'}}>{nama_product}</h1>
-                        <div style={{backgroundColor:'#D50000',width:'50px',height:'20px',color:'white',textAlign:'center',fontWeight:'bold',display:'inline-block'}}>
-                            {discount_product}%
+                        <div style={{backgroundColor:'#D50000',width:'50px',height:'20px',color:'white',textAlign:'center',fontWeight:'bold',display:'inline-block'}}>{discount_product}%
                         </div>
                         <span style={{fontWeight:'600',fontSize:'15px',color:'#606060',marginLeft:'10px',textDecoration:'line-through'}}>Rp. {harga_product}</span>
                         <div style={{fontWeight:'700',fontSize:'24px',color:'#FF5722',marginTop:'20px'}}>{formatMoney(harga_product-(harga_product*(discount_product/100)))}</div>

@@ -8,8 +8,13 @@ import {Link} from 'react-router-dom'
 import swal from 'sweetalert'
 import {cartCount} from './../1.actions'
 import SaleProduct from './saleProduct'
-import Bounce from 'react-reveal/Bounce';
+import Bounce from 'react-reveal/Bounce'
+import StickyBox from "react-sticky-box"
 
+
+function formatMoney(number) {
+    return number.toLocaleString('in-RP', { style: 'currency', currency: 'IDR' });
+}
 
 class Home extends React.Component{
     state = {listProduct : [],dataPage:6,cart:0}
@@ -57,10 +62,10 @@ class Home extends React.Component{
                                  <h6 className="card-text">{val.deskripsi_product}</h6>
                                  {
                                  val.discount_product > 0 ?
-                                 <p className="card-text" style={{textDecoration:'line-through',color:'red',display:'inline'}}>Rp. {val.harga_product}</p>
+                                 <p className="card-text" style={{textDecoration:'line-through',color:'red',display:'inline'}}>{formatMoney(val.harga_product)}</p>
                                  : null
                                  }
-                                 <p style={{display:'inline',marginLeft:'10px',fontWeight:'400'}}>Rp. {val.harga_product - (val.harga_product*(val.discount_product/100))}</p>
+                                 <p style={{display:'inline',marginLeft:'10px',fontWeight:'400'}}>{formatMoney(val.harga_product - (val.harga_product*(val.discount_product/100)))}</p>
                                 <input type="button" className="d-block btn btn-primary" onClick={()=>this.addBtnCart(index)} value="Add To Cart"></input>
                             </div>
                     </div>
@@ -73,8 +78,8 @@ class Home extends React.Component{
     render(){
         return(
             <div className='home'>
-            <div className="container">
-                <div className="row justify-content-center">    
+            <div className="container">           
+                <div className="row justify-content-center">   
                     <div className="col-lg-12">
                         <div className="my-4" style={{paddingTop:'80px'}}>
                             <h1 style={{textAlign:'center',fontFamily:'sanserif',fontSize:'50px',fontWeight:'bold'}}>Selamat Datang Di Website <br/><span style={{color:'blue'}}>OnOSepeda.Com</span></h1>
