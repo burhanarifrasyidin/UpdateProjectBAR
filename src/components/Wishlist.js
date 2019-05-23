@@ -77,12 +77,12 @@ class Wishlist extends React.Component{
         return (
             <div className='container' style={{paddingTop:'80px'}}>
                 <div className='row justify-content-center'>
-                <h2 style={{margin : "10px"}}>Wishlist Belanja Kamu : </h2>           
+                <h2 className='wishtext' style={{margin : "10px"}}>Wishlist Belanja Kamu : </h2>         
                 </div>
                 <div className='row justify-content-center'>
                 {this.renderProdukJsx()}              
                 </div>
-            <div className='row justify-content-center'>
+                <div className='row justify-content-center'>
                          <p style={{cursor:'pointer',fontStyle:'italic'}} onClick={()=>this.setState({dataPage:this.state.dataPage+5})}>View More</p>
                     </div>
             </div>

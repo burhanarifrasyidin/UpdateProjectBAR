@@ -25,6 +25,7 @@ class ManageCategory extends React.Component{
 
     onBtnSearch = () => {
         var category = this.refs.dropdown.value
+        // eslint-disable-next-line
         if(category == 0){
             this.getCategory()
         }else{

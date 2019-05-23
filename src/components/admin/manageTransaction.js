@@ -32,7 +32,7 @@ class ManageTransaction extends React.Component{
     }
 
     approveTransaction = (id) => {
-        Axios.put(urlApi+ '/transaksi/approve/' + id, {status : 'Approved'})
+        Axios.put(urlApi+ '/transaksi/approve/' + id, {status : 'Sudah Diproses'})
             .then((res) => {
                 swal('Success', res.data, 'success')
                 this.getDataTransactions()
@@ -67,18 +67,19 @@ class ManageTransaction extends React.Component{
                         <th scope="row">{index+1}</th>
                         <td>{val.tanggal}</td>
                         <td>{val.waktu}</td>
+                        <td>{val.order_number}</td>
                         <td>{val.username}</td>
                         <td>{val.item}</td>
                         <td>{formatMoney(val.total_harga)}</td>
                         <td>{val.status}</td>
                         <td>
-                            <input type='button' className='btn btn-danger' value='Receipt' onClick={() => this.setState({receipt : val.bukti_transaksi, modal : true })} />
+                            <button style={{marginLeft:'25px'}} className='btn btn-primary' data-toggle="tooltip" data-placement="bottom" title="Slip Receipt" onClick={() => this.setState({receipt : val.bukti_transaksi, modal : true })}><i class="fas fa-file-invoice"></i></button>
                         </td>
                         <td>
-                            <input type='button' className='btn btn-success' value='Approve' onClick={() => this.approveTransaction(val.id)} />
+                            <button className='btn btn-success' data-toggle="tooltip" data-placement="bottom" title="Approve" onClick={() => this.approveTransaction(val.id)}><i class="far fa-thumbs-up"></i></button>
                         </td>
                         <td>
-                            <input type='button' className='btn btn-primary' value='Reject' onClick={() => this.rejectTransaction(val)}/>  
+                            <button className='btn btn-danger' data-toggle="tooltip" data-placement="bottom" title="Reject" onClick={() => this.rejectTransaction(val)}><i class="fas fa-eject"></i></button>  
                         </td>
                     </tr>
             )
@@ -91,12 +92,15 @@ class ManageTransaction extends React.Component{
         if(this.props.role === 'admin'){
             return (
                 <div className="container" style={{paddingTop:'100px'}}>
-                <table className="table table-dark">
+                {
+                    this.state.data.length > 0 ?
+                    <table className="table table-dark">
                         <thead>
                         <tr>
                             <th scope="col">NO</th>
                             <th scope="col">TANGGAL BAYAR</th>
                             <th scope="col">WAKTU</th>
+                            <th scope="col">ORDER NUMBER</th>
                             <th scope="col">USERNAME</th>
                             <th scope="col">ITEM</th>
                             <th scope="col">TOTAL HARGA</th>
@@ -110,15 +114,18 @@ class ManageTransaction extends React.Component{
                             {this.renderJsx()}
                         </tbody>
                     </table>
-                    <div>
+                    :
+                    <h2 className='protupload' style={{textAlign:'center',marginTop:'50px'}}>BELUM ADA TRANSAKSI YANG MASUK</h2>
+                }
+                  
+                   <div>
                         <Modal isOpen={this.state.modal} toggle={() => this.setState({modal:false})} className={this.props.className}>
                         <ModalHeader toggle={() => this.setState({modal:false})}> Transaction Receipt </ModalHeader>
                         <ModalBody>
                             {this.state.receipt ? 
                              <img src={'http://localhost:2008/'+this.state.receipt} width='100%' alt='broken' />
                              : 
-                             <h2>No Transactions Receipt</h2>
-                            
+                             <h2>Tidak Ada Bukti Transaksi</h2>                            
                             }
                            
                         </ModalBody>

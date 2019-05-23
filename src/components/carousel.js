@@ -71,7 +71,6 @@ class CarouselKu extends Component {
           key={item.src}
         >
           <img src={item.src} alt={item.altText} height='700px' width='100%' />
-          {/* <CarouselCaption captionText={item.caption} captionHeader={item.caption} /> */}
         </CarouselItem>
       );
     });

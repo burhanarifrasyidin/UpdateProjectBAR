@@ -6,9 +6,8 @@ import {Link} from 'react-router-dom'
 import PageNotFound from './pageNotFound'
 import QueryString from 'query-string'
 
-
 function formatMoney(number) {
-  return number.toLocaleString('in-RP', { style: 'currency', currency: 'IDR' });
+    return number.toLocaleString('in-RP', { style: 'currency', currency: 'IDR' });
 }
 
 class History extends React.Component{
@@ -31,7 +30,7 @@ class History extends React.Component{
     getDataUrl = () => {
         var obj = QueryString.parse(this.props.location.search)
         if(this.props.location.search){
-            if(obj.month < 10){
+            if(obj.month < 12){
                 Axios.get(urlApi + `/transaksi/filterhistory?id_user=${this.props.id}&month=0${obj.month}`)
                 .then((res) => {
                     this.setState({rows : res.data})
@@ -69,11 +68,12 @@ class History extends React.Component{
 filterData = () => {
     var bulan = this.refs.bulan.value
     this.pushUrl()
+    // eslint-disable-next-line
     if(bulan == 0){
         this.getDataApi()
     }
     else {
-        if(bulan < 10){
+        if(bulan < 12){
             bulan = '0'+this.refs.bulan.value
         }
        
@@ -102,47 +102,54 @@ pushUrl = () => {
                         <th scope="row">{index+1}</th>
                         <td>{val.tanggal}</td>
                         <td>{val.waktu}</td>
+                        <td>{val.order_number}</td>
                         <td>{val.item}</td>
                         <td>{formatMoney(val.total_harga)}</td>
-                        <Link to={'/history-detail/' + val.id}><input type='button' className='btn btn-danger' value='Detail'/></Link>
+                        <Link to={'/history-detail/' + val.order_number}><input type='button' className='btn btn-danger' value='Detail'/></Link>
                     </tr>
             )
         })
         return jsx
     }
-
-    
+  
     render() {
         if(this.props.username !== ''){
             return (
                 <div className="container" style={{paddingTop:'90px'}}>
-                <h2 style={{marginTop:'5px'}}>History Transaksi Untuk Bpk/Ibu {this.props.username}</h2>
-                <h4>Filter by Month</h4>
+                <h2 className='historytext' style={{marginTop:'5px'}}>History Transaksi Untuk Bpk/Ibu {this.props.username}</h2>
+                <hr/>
                     <div className='row'>
                         <div className='col-md-3'>
                             {this.Dropdown()}
                         </div>
                         <div className='col-md-3' >
-                            <input type='button' className='btn btn-primary' style={{}} onClick={this.filterData} value='Filter'/>
+                            <input type='button' className='btn btn-primary' style={{}} onClick={this.filterData} value='Filter History '/>
                         </div>
                     </div>
-
-                <table className="table table-dark" style={{marginTop:'12px'}}>
-                        <thead>
-                        <tr>
-                            <th scope="col">N0</th>
-                            <th scope="col">TANGGAL</th>
-                            <th scope="col">WAKTU</th>
-                            <th scope="col">ITEM</th>
-                            <th scope="col">TOTAL HARGA</th>
-                            <th scope="col">DETAIL</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {this.renderJsx()}
-                        </tbody>
-                    </table>
-                    
+                    <div>
+                        {
+                            this.state.rows.length > 0 ?
+                            <table className="table table-dark" style={{marginTop:'12px'}}>
+                                <thead>
+                                <tr>
+                                    <th scope="col">N0</th>
+                                    <th scope="col">TANGGAL</th>
+                                    <th scope="col">WAKTU</th>
+                                    <th scope="col">ORDER_NUMBER</th>
+                                    <th scope="col">ITEM</th>
+                                    <th scope="col">TOTAL HARGA</th>
+                                    <th scope="col">DETAIL</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {this.renderJsx()}
+                                </tbody>
+                            </table>
+                            : 
+                            <h2 className='protupload' style={{textAlign:'center',marginTop:'120px'}}>BELUM ADA HISTORY TRANSAKSI</h2>
+                        }
+                        
+                    </div>
             </div>
             )
         } else {

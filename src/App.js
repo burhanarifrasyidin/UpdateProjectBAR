@@ -43,7 +43,6 @@ class App extends Component {
   }
 
   render() {
-    // if(this.props.cookie){
       return (
         <div className='position-relative' style={{minHeight:'100vh'}}>
           <div style={{paddingBottom:'250px'}}>
@@ -70,7 +69,7 @@ class App extends Component {
             <Route path='/history/:id' component={Histori} exact/>
             : <Route path='/history/' component={Histori} exact/>
             }
-            <Route path='/history-detail/:id' component={HistoryDetail} exact/>
+            <Route path='/history-detail/:order_number' component={HistoryDetail} exact/>
             {
               this.props.username === '' ?
             <Route path='/cart/:id' component={Cart} exact/>
@@ -95,16 +94,7 @@ class App extends Component {
             
         </div>
       );
-    }
-    // return <div className='center'>
-    //           <Loader
-    //             type="Bars"
-    //             color="#00BFFF"
-    //             height="100"	
-    //             width="100"
-    //             />
-    //        </div>
-    // 
+    } 
   }
 
   const mapStateToProps = (state) => {

@@ -67,7 +67,6 @@ class EditProfile extends React.Component{
             tanggal_lahir : this.refs.tanggalEdit.value ? this.refs.tanggalEdit.value : this.state.editItem.tanggal_lahir,
             alamat : this.refs.alamatEdit.value ? this.refs.alamatEdit.value : this.state.editItem.alamat,
             jenis_kelamin : this.refs.jenisEdit.value ? this.refs.jenisEdit.value : this.state.editItem.jenis_kelamin
-            // phone : this.refs.phoneEdit.value ? this.refs.phoneEdit.value : this.state.editItem.phone
           }
           if(this.state.selectedFileEdit){
             var fd = new FormData()
@@ -232,7 +231,7 @@ class EditProfile extends React.Component{
             <div className="container" style={{marginTop:'80px',marginLeft:'430px'}}>
                 <div className = 'row mt-3 mb-2'>
                     <div className= 'col-md-4'>
-                        <input style={{marginLeft:'10px',borderRadius:'20px',marginBottom:'4px'}} type="button" className='btn btn-secondary' onClick={this.onBtnEditClick} value=' + '></input>
+                        <button style={{marginLeft:'10px',borderRadius:'20px',marginBottom:'4px'}} height='8' data-toggle="tooltip" data-placement="bottom" title="Klik Untuk Add Profile" className='d-block btn btn-secondary' onClick={this.onBtnEditClick}><i class="fas fa-plus-square"></i></button>
                         {
                         this.state.isEdit === true ?
                         <div>

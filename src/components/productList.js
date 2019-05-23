@@ -58,14 +58,6 @@ class ProductList extends React.Component{
 
     Dropdown = () => {
         return <select ref = 'category' className='form-control'>
-                     {/* <option value={0}>All Category</option>
-                          {
-                            this.state.listProduct.map((val)=>{
-                                return(
-                                 <option value={val.category}>{val.category_product}</option>
-                                )
-                              })
-                          } */}
                     <option value={0}>All Category</option>
                     <option value={'XC'}>XC</option>
                     <option value={'Frame'}>Frame</option>
@@ -81,15 +73,14 @@ class ProductList extends React.Component{
                     <option value={'Sadle'}>Sadle</option>
                     <option value={'Screw'}>Screw</option>
                     <option value={'Shift Lever'}>Shift Lever</option>
-                    <option value={'Stand'}>Stand</option>
-                    
-      
+                    <option value={'Stand'}>Stand</option>      
                 </select>
     }
 
     filterData = () => {
         var category_product = this.refs.category.value
         this.pushUrl()
+        // eslint-disable-next-line
         if(category_product == 0){
             this.getDataProduct()             
         }
@@ -105,7 +96,7 @@ class ProductList extends React.Component{
     
     pushUrl = () => {
         var newLink = '/product'
-        if(this.refs.category.value > 0){
+        if(this.refs.category.value){
             newLink += '?category=' + this.refs.category.value
         } 
         this.props.history.push(newLink)

@@ -270,22 +270,6 @@ class CustomPaginationActionsTable extends React.Component {
 
 Dropdown = () => {
   return <select ref = 'category' className='form-control'>
-              {/* <option value={0}>All Category</option>
-              <option value={'XC'}>XC</option>
-              <option value={'Frame'}>Frame</option>
-              <option value={'Botol'}>Botol</option>
-              <option value={'Bell'}>Bell</option>
-              <option value={'Crankshaft'}>Crankshaft</option>
-              <option value={'Handle Bar'}>Handle Bar</option>
-              <option value={'Handle Grip'}>Handle Grip</option>
-              <option value={'Handle Stem'}>Handle Stem</option>
-              <option value={'Kunci'}>Kunci</option>
-              <option value={'Nut'}>Nut</option>
-              <option value={'RB'}>RB</option>
-              <option value={'Sadle'}>Sadle</option>
-              <option value={'Screw'}>Screw</option>
-              <option value={'Shift Lever'}>Shift Lever</option>
-              <option value={'Stand'}>Stand</option> */}
                <option value={0}>All Category</option>
                     {
                       this.state.category.map((val)=>{
@@ -301,6 +285,7 @@ Dropdown = () => {
 filterData = () => {
     var category_product = this.refs.category.value
     this.pushUrl()
+    // eslint-disable-next-line
     if(category_product == 0){
         this.getDataApi()
     }
@@ -316,7 +301,7 @@ filterData = () => {
 
 pushUrl = () => {
   var newLink = '/manage'
-  if(this.refs.category.value > 0){
+  if(this.refs.category.value){
       newLink += '?category=' + this.refs.category.value
   } 
   this.props.history.push(newLink)

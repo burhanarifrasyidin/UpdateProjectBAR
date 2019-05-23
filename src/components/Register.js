@@ -7,7 +7,7 @@ import firebase from 'firebase'
 import { provider } from './../support/google'
 import './../support/css/product.css'
 import swal from 'sweetalert'
-
+import validator from 'validator'
 
 
 class Register extends React.Component{
@@ -35,6 +35,8 @@ class Register extends React.Component{
         var phone = this.refs.phone.value
         if(username === "" || password === ""|| email === "" || phone === ""){
             this.setState({error: ' Harus diisi semua '})
+        }else if(validator.isEmail(email) === false){
+            this.setState({error: ' Email Salah Harus Diisi Dengan Benar '})
         }else{
             this.props.userRegister(username,password,email,phone)
             this.refs.username.value = ''
@@ -75,7 +77,7 @@ class Register extends React.Component{
             <div className="br">
             <div className="container myBody " style={{minHeight:"600px",marginLeft:'600px'}}><br/><br/>
                 <div className="row justify-content-sm-center ml-auto mr-auto mt-3">                          
-                        <form className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:"none",marginTop:'120px'}} ref="formLogin">
+                        <form className="border mb-3" style={{padding:"20px", borderRadius:"5%",backgroundColor:"none",marginTop:'150px'}} ref="formLogin">
                             <fieldset>
                             <h2>Create Account</h2>
                             <div className="input-group mb-2">
@@ -118,9 +120,9 @@ class Register extends React.Component{
                                     <div className="col-12">
                                     {this.renderLoadingOrBtn()}
 
-                                    <div>
+                                    {/* <div>
                                     <button className='btn btn-success mt-2' onClick={this.loginWithGoogle} style={{width:'300px'}}><i class="fab fa-google-plus"> Login With Google</i></button>
-                                    </div>
+                                    </div> */}
                                     {this.renderErrorMessege()}
                                     </div>
                                         

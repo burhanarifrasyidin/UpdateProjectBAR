@@ -15,11 +15,12 @@ class HistoryDetail extends React.Component{
         this.getDataApi()
     }
     getDataApi = () => {
-        // console.log(this.props.id)
-        var idUrl = this.props.match.params.id
-        Axios.get(urlApi + '/transaksi/transdetail/'+idUrl)
+        // alert(this.props.match.params.order_number)
+        var idtrans = this.props.match.params.order_number
+        Axios.get(urlApi + '/transaksi/transdetailpay/'+idtrans)
             .then((res) => {
                 this.setState({rows : res.data})
+                // console.log(res.data)
             })
             .catch((err) => console.log(err))
     }

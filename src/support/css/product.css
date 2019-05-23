@@ -72,3 +72,69 @@ img{
 
 }
 
+/* ----------- css judul web ------------- */
+
+.span{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Merriweather', serif;
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+.title{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Merriweather', serif;
+}
+
+/* ----------- css diskon teks ------------- */
+
+.diskontext{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Merriweather', serif;
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+/* ----------- css wish teks ------------- */
+
+.wishtext{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Merriweather', serif;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Rokkitt', serif;
+}
+
+/* ----------- css history teks ------------- */
+
+.historytext{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Merriweather', serif;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Rokkitt', serif;
+}
+
+/* ----------- css payment teks ------------- */
+
+.paymenttext{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Merriweather', serif;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Rokkitt', serif; 
+}
+
+/* ----------- css history teks ------------- */
+
+.prothistory{
+    font-family: 'Lato', sans-serif;
+}
+
+/* ----------- css navbar teks ------------- */
+
+.navbartext{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Merriweather', serif;
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+.protupload{
+    font-family: 'Lato', sans-serif;
+}
+

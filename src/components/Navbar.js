@@ -53,7 +53,7 @@ class HeaderKu extends Component {
                 <div style = {{marginBottom: "75px",position:'absolute'}}>
                     <Navbar light expand = "md" fixed = "top" style={{height:'60px',backgroundImage:'linear-gradient(178deg,#242426,#242426)'}} >
                         <NavbarBrand className = "ml-2" style={{fontSize:'20px'}}>
-                            <Link to = '/'><img src = "http://www.logospng.com/images/6/10-reasons-why-google-optimise-is-my-favourite-split-6432.png" alt = "brand" width = "30px" height='30px'/>OnOSepeda.Com</Link>
+                            <Link to = '/'><img src = "http://www.logospng.com/images/6/10-reasons-why-google-optimise-is-my-favourite-split-6432.png" alt = "brand" width = "30px" height='30px'/><span className='navbartext'>OnOSepeda.Com</span></Link>
                         </NavbarBrand>
                     <NavbarToggler onClick = {this.toggle}/><Collapse isOpen = {this.state.isOpen}navbar >
                         <Nav className = "ml-auto"navbar >
@@ -88,7 +88,7 @@ class HeaderKu extends Component {
             return (
             <div style = {{marginBottom: "75px",position:'absolute'}}>
                 <Navbar light expand = "md"fixed = "top" style={{height:'60px',backgroundImage:'linear-gradient(178deg,#242426,#242426)'}}>
-                    <NavbarBrand className = "ml-2" style={{fontSize:'20px'}}><Link to = '/' ><img src = "http://www.logospng.com/images/6/10-reasons-why-google-optimise-is-my-favourite-split-6432.png" alt = "brand" width = "30px" height='30px'/>OnOSepeda.Com</Link>
+                    <NavbarBrand className = "ml-2" style={{fontSize:'20px'}}><Link to = '/'><img src = "http://www.logospng.com/images/6/10-reasons-why-google-optimise-is-my-favourite-split-6432.png" alt = "brand" width = "30px" height='30px'/><span className='navbartext'>OnOSepeda.Com</span></Link>
                     </NavbarBrand >
                     <NavbarToggler onClick = {this.toggle}/><Collapse isOpen = {this.state.isOpen}navbar><Nav className = "ml-auto" navbar>
                     <NavItem >
@@ -99,7 +99,7 @@ class HeaderKu extends Component {
                     </NavItem>
 
                     <NavItem>
-                        <NavLink style={{color:'white'}}>Hi,{this.props.bebas} Bro</NavLink>
+                        <NavLink style={{color:'white',fontSize:'16px'}}>Hi,{this.props.bebas}</NavLink>
                     </NavItem>
 
                     <NavItem >
@@ -130,13 +130,6 @@ class HeaderKu extends Component {
                                 this.props.role === 'admin' ?
                                 <Link to='/managecategory'><DropdownItem>
                                 Manage Category
-                                </DropdownItem></Link>
-                                : null
-                            }
-                            {
-                                this.props.role === 'admin' ?
-                                <Link to='/managetransaksi'><DropdownItem>
-                                Manage Transaction
                                 </DropdownItem></Link>
                                 : null
                             }

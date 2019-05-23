@@ -47,6 +47,23 @@ class ProductDetail extends React.Component{
         .catch((err) => console.log(err))
     }
 
+    addBtnBuy = () => {
+        var qty = this.refs.inputQty.value
+        var note = this.refs.inputNote.value
+        var newData = {
+            id_user: this.props.id,
+            id_product : this.state.product.id,
+            quantity : qty,
+            note : note
+        }
+       Axios.post(urlApi+'/cart/addtocart', newData)
+        .then((res) => {
+           swal("Thanks for the Purchase", res.data, "success")
+           this.props.cartCount(this.props.username)
+        })
+        .catch((err) => console.log(err))
+    }
+
     addBtnWish = () => {
         var newData = {
             id_user: this.props.id,
@@ -83,7 +100,7 @@ class ProductDetail extends React.Component{
                         <h1 style={{color:'#4C4C4C'}}>{nama_product}</h1>
                         <div style={{backgroundColor:'#D50000',width:'50px',height:'20px',color:'white',textAlign:'center',fontWeight:'bold',display:'inline-block'}}>{discount_product}%
                         </div>
-                        <span style={{fontWeight:'600',fontSize:'15px',color:'#606060',marginLeft:'10px',textDecoration:'line-through'}}>Rp. {harga_product}</span>
+                        <span style={{fontWeight:'600',fontSize:'15px',color:'#606060',marginLeft:'10px',textDecoration:'line-through'}}>{harga_product}</span>
                         <div style={{fontWeight:'700',fontSize:'24px',color:'#FF5722',marginTop:'20px'}}>{formatMoney(harga_product-(harga_product*(discount_product/100)))}</div>
 
                         <div className='row'>
@@ -93,7 +110,7 @@ class ProductDetail extends React.Component{
                             </div>
                             <div className='col-md-6'>
                                 <div style={{marginTop:'20px',color:'#606060',fontWeight:'700',fontSize:'14px'}}>Catatan Untuk Penjual (Optional)</div>
-                                <input type='text' placeholder='Ex : Contoh Warna Putih, Ukuran XL, Edisi ke-2'className='form-control' style={{width:'100%',marginTop:'10px'}}></input>   
+                                <input type='text' ref='inputNote' placeholder='Ex : Contoh Warna Putih, Ukuran XL, Edisi ke-2'className='form-control' style={{width:'100%',marginTop:'10px'}}></input>   
                             </div>
                         </div>
                         <div className='row mt-4'>
@@ -110,7 +127,7 @@ class ProductDetail extends React.Component{
                             :
                             <button className='btn border-secondary col-md-2 ml-3' value='Add To Wishlist' onClick={()=>this.addBtnWish()}><i class="fas fa-heart">Add To Wish</i></button>
                         }
-                            <input type='button' className='btn btn-primary col-md-2 ml-3' value='Beli Sekarang'></input>
+                            <input type='button' className='btn btn-primary col-md-2 ml-3' value='Beli Sekarang' onClick={()=>this.addBtnBuy()}></input>
                             <input type='button' className='btn btn-success col-md-3 ml-3' value='Add To Cart' onClick={()=>this.addBtnCart()}></input>
                             
                         </div>

@@ -164,7 +164,6 @@ class CustomPaginationActionsTable extends React.Component {
     };
     
   onBtnSave = () => {
-    // console.log(this.state.rows[0].id)
         var id_product = this.state.rows[0].id
         var id_user = this.props.id
         var quantity = parseInt(this.qty.inputRef.value) === '' ? parseInt(this.state.editItem.quantity) : parseInt(this.qty.inputRef.value)
@@ -190,19 +189,6 @@ getTotalHarga = () => {
     }
     return harga
 }
-
-// getItem = () => {
-//   var arr = []
-//   for(var i = 0 ; i < this.state.rows.length ; i++){
-//     var nama_product = this.state.rows[i].nama_product
-//     var harga_product = this.state.rows[i].harga_product
-//     var discount_product = this.state.rows[i].discount_product  
-//     var quantity = this.state.rows[i].quantity
-//     var data = {nama_product, harga_product, quantity, discount_product}
-//     arr.push(data)
-//   }
-//   return arr
-// }
 
 addToTransactionDetail = () => {
   var date = new Date()
@@ -242,7 +228,7 @@ checkOut = () => {
     total_harga : this.getTotalHarga(),
     item : this.state.rows.length,
     email : this.props.email,
-    status : 'Unpaid'
+    status : 'Belum Terbayar'
  }
  Axios.post(urlApi+'/cart/checkout', newData)
   .then((res)  => {
@@ -253,22 +239,6 @@ checkOut = () => {
     this.setState({checkOut:true})
   })
 }
-// cekOut = () => {
-//   var date = new Date()
-//     var newData = {
-//       idUser : this.props.id,
-//       username : this.props.username,
-//       tanggal : String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear(),
-//       waktu : String(date.getHours()).padStart(2, '0') + ':' + String(date.getMinutes()).padStart(2, '0') + ':' + String(date.getSeconds()).padStart(2, '0'),
-//       total : this.getTotalHarga(),
-//       item : this.getItem()
-//     }
-//     Axios.post(urlApi + '/history' , newData)
-//     .then((res) => {
-//       swal('Checkout Status' , 'Sukses','success')
-//       this.deleteCart()
-//     })
-// }
 
   renderJsx = () => {
     var jsx = this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((val) => {
@@ -281,13 +251,6 @@ checkOut = () => {
                   <TableCell>Rp. {val.harga_product}</TableCell>
                   <TableCell>{val.discount_product}%</TableCell>
                   <TableCell>{val.quantity}</TableCell>
-                  {/* {
-                    this.state.isEdit===true && this.state.editIndex===index?
-                  <TableCell align="center">
-                  <input ref="quantity" type="number" defaultValue={val.qty}>
-                  </input></TableCell>:
-                  <TableCell align="center">{val.qty}</TableCell>
-                  } */}
                   <TableCell>
                     {formatMoney((val.harga_product - (val.harga_product*(val.discount_product/100)))*val.quantity)}
                   </TableCell>
@@ -391,7 +354,7 @@ checkOut = () => {
           </Paper>
         
         </div>
-        : <Link to='/'><div className='row justify-content-center p-2'><div className='col-md-6' style={{paddingTop:'200px'}}><input type='button' value='Your Cart Is Empty,Continue Shopping' className='btn btn-success' style={{fontSize:'27px',fontWeight:'bold',textAlign:'center'}}></input></div></div></Link>
+        : <Link to='/'><div className='row justify-content-center p-2'><div className='col-md-6' style={{paddingTop:'200px'}}><input type='button' value='Your Cart Is Empty,Continue Shopping' className='btn btn-dark' style={{fontSize:'27px',fontWeight:'bold',textAlign:'center'}}></input></div></div></Link>
         } 
         
           
